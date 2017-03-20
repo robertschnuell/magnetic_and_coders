@@ -10,6 +10,8 @@ class Column {
   private boolean active = false;
 
   private float iniX, iniY;
+  
+  private float perc = 0;
 
   //
 
@@ -54,7 +56,7 @@ class Column {
       noFill();
       stroke(0, 255, 0);
       for ( int i = 0; i < squares.length; i++) {
-        squares[i].update(map(mouseY, 0, height, 0, 100));  // DONT FORGET TO CHANGE FOR MOVEMENT
+        squares[i].update(perc);  // DONT FORGET TO CHANGE FOR MOVEMENT
       }
     } else if ( squaresList != null) {
       for ( int i = 0; i < squaresList.size(); i++) {
@@ -107,6 +109,7 @@ class Column {
     }
   }
 
+
   public void checkStateClick() {
     if (active) {
       if ( squares != null) {
@@ -124,10 +127,48 @@ class Column {
     }
   }
 
+  protected void checkKey(int k) {
+    if (active) {
+
+      for ( int i = 0; i < squares.length; i++) {
+
+        for ( int j = 0; j < squares[i].getStatesCount(); j++) {
+          if (squares[i].getStateActive(j)) {
+            switch (k) {
+            case 0:
+              squares[i].changeState(j, squares[i].getStateActivePoint(j), 0, -1);
+              break;
+            case 1:
+              squares[i].changeState(j, squares[i].getStateActivePoint(j), 0, 1);
+              break;
+            case 2:
+              squares[i].changeState(j, squares[i].getStateActivePoint(j), -1, 0);
+              break;
+            case 3:
+              squares[i].changeState(j, squares[i].getStateActivePoint(j), 1, 0);
+              break;
+            default:
+            }
+          }
+        }
+        /*
+        if(squares[i].getActive()) {
+         println("bing" + i );     
+         squares[i].checkKey(k);
+         break;
+         }
+         */
+      }
+    }
+  }
 
 
-  public void setActive(boolean a) {
+
+  protected void setActive(boolean a) {
     active = a;
+  }
+  protected boolean getActive() {
+    return this.active;
   }
 
   protected void addSquareState(int id, float x, float y, float s) {
@@ -142,6 +183,19 @@ class Column {
     } else {
       return 0;
     }
+  }
+
+  protected void showStates( boolean s) {
+    for ( int i = 0; i< squares.length; i++) {
+      squares[i].showStates(s);
+    }
+  }
+  
+  protected float getPerc() {
+    return this.perc;
+  }
+  protected void setPerc(float p) {
+    this.perc = p;
   }
 
 

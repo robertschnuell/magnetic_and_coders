@@ -2,6 +2,8 @@ class Side {
 
   private ArrayList<Column>columns;
 
+  private boolean showStates = true;
+
 
   protected Side(int amount, float x, float y) {
     columns = new ArrayList<Column>();
@@ -10,8 +12,8 @@ class Side {
       Column c = new Column( 4, x+ 75*i, y, 50);
       columns.add(c);
     }
-    
-    ini(x,y,50,400);
+
+    ini(x, y, 50, 400);
   }
 
   protected void  update() {
@@ -21,11 +23,19 @@ class Side {
   }
 
   private void ini(float x_, float y_, float s_, float yOff) {
-    
+
     for ( int i = 0; i < columns.size(); i++) {
       Column tmpC =  columns.get(i);
       for ( int j = 0; j < tmpC.getSquareAmount(); j++) {
-        tmpC.addSquareState(j,x_+ 75*i,y_+ s_*j + yOff,s_);
+        tmpC.addSquareState(j, x_+ 75*i, y_+ s_*j + yOff, s_);
+      }
+    }
+  }
+
+  protected void checkKey(int k) {
+    for ( int i = 0; i < columns.size(); i++) {
+      if (columns.get(i).getActive()) {
+        columns.get(i).checkKey(k);
       }
     }
   }
@@ -53,5 +63,20 @@ class Side {
         columns.get(i).setActive(false);
       }
     }
+  }
+
+  protected void showStates( boolean s) {
+    showStates = !showStates;
+    for ( int i = 0; i < columns.size(); i++) {
+      columns.get(i).showStates(showStates);
+    }
+  }
+
+  protected boolean getShowStates() {
+    return showStates;
+  }
+  protected void setPerc(int c, float p) {
+
+    columns.get(c).setPerc(p);
   }
 }

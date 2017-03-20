@@ -7,6 +7,7 @@ class Square {
   private  boolean showStates = true;
   private  boolean showMaster = true;
   private  boolean active = false;
+  
 
 
   //Constructors
@@ -24,10 +25,10 @@ class Square {
 
   protected void update() {
 
-    if(active) {
-      fill(255,100);
+    if (active) {
+      fill(255, 100);
     } else {
-    noFill();
+      noFill();
     }
 
     if (showStates) {
@@ -35,10 +36,20 @@ class Square {
       stroke(125);
       strokeWeight(1);
       for ( int i = 0; i < states.size(); i++) {
-        if(states.get(i).getActive() ){
-          fill(255,0,0,100);
-        }
-        else {
+        if (states.get(i).getActive() ) {
+
+
+
+
+          int selectedPoint = states.get(i).checkDist();
+          if ( (selectedPoint >= 0 ) && (selectedPoint <=3 ) ) {
+            fill(255);
+            ellipse(states.get(i).getX(selectedPoint), states.get(i).getY(selectedPoint), 5, 5);
+            states.get(i).setActivePoint(selectedPoint);
+          }
+          fill(255, 0, 0, 100);
+        } else {
+
           noFill();
         }
         beginShape();
@@ -106,18 +117,18 @@ class Square {
       master = states.get(0);
     }
   }
-  
+
   protected boolean checkClick(int s) {
-    if(
-     ( (mouseX > states.get(s).getX(0) ) && ( mouseX < states.get(s).getX(2)) )&&
-     ( (mouseY > states.get(s).getY(0) ) && ( mouseY < states.get(s).getY(2) ) ) 
-    ) {
+    if (
+      ( (mouseX > states.get(s).getX(0) ) && ( mouseX < states.get(s).getX(2)) )&&
+      ( (mouseY > states.get(s).getY(0) ) && ( mouseY < states.get(s).getY(2) ) ) 
+      ) {
       return true;
     } else {
       return false;
     }
-    
   }
+
 
 
 
@@ -149,13 +160,28 @@ class Square {
     return states.get(s).getY(p);
   }
 
+  protected boolean getActive() {
+    return active;
+  }
+
   protected void changeState(int s, int p, int x_, int y_) {
     states.get(s).change(p, x_, y_);
   }
-  
+
   protected void setStateActive(int s, boolean a) {
     states.get(s).setActive(a);
   }
+  protected boolean getStateActive(int s) {
+    return states.get(s).getActive();
+  }
+  protected int getStateActivePoint(int s) {
+    return states.get(s).getActivePoint();
+  }
+  
+  protected void showStates(boolean s) {
+    showStates = s;
+  }
+
 
 
   protected int getStatesCount() {
