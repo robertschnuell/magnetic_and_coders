@@ -32,6 +32,7 @@ void setup() {
   //TEST MIDI 
   client = new MQTTClient(this);
   client.connect("mqtt://localhost");
+  client.subscribe("a1/current");
 }
 
 
@@ -42,16 +43,25 @@ void draw() {
   installation.update();
 
 
-  client.publish("topic/state", str(installation.getCubeCoordinates(0,0,0)[0][1]));
-  
+  // client.publish("topic/state", str(installation.getCubeCoordinates(0,0,0)[0][1]));
+
+
+
   //println(tmp[0][0]);
 
   //left.update();
   //right.update();
 }
 
+void messageReceived(String topic, byte[] payload) { 
+  String tmp = new String(payload); 
+  installation.setColumnPerc(0, 0, float(tmp));
+}
+
 public void keyPressed()
 {
+  client.publish("a1/target", str(random(0,100)));
+
   if (key == CODED) {
     if (keyCode == UP) {
       //send up

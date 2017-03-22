@@ -2,16 +2,28 @@
 import mqtt.*;
 
 MQTTClient client;
-float noisePos = 0.0;
+
+
+ColumnArduino a1;
 
 void setup() {
-    client = new MQTTClient(this);
+  client = new MQTTClient(this);
   client.connect("mqtt://localhost");
+
+  a1 = new ColumnArduino("a1", 100, 1000, 1);
+  client.subscribe("a1/target");
 }
 
 void draw() {
- 
-  noisePos = noisePos + .01;
-  float pos = noise(noisePos)*100;
-   client.publish("C1/pos", str(pos));
+  a1.update();
+}
+
+void messageReceived(String topic, byte[] payload) {
+  //println("new message: " + topic + " - " + new String(payload));
+
+  String tmp = new String(payload);
+
+println(tmp);
+
+  a1.goTo(float(tmp));
 }
