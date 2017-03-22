@@ -197,6 +197,10 @@ class Column {
   protected void setPerc(float p) {
     this.perc = p;
   }
+  
+  protected float[][] getCubeCords(int pos) {
+    return squares[pos].getCords();
+  }
 
 
 

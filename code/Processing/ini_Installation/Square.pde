@@ -181,6 +181,16 @@ class Square {
   protected void showStates(boolean s) {
     showStates = s;
   }
+  protected float[][] getCords() {
+    float[][] cords = new float[4][2];
+    for ( int i = 0; i < 4; i++) {
+
+        cords[i][0] = master.getX(i);
+        cords[i][1] = master.getY(i);
+      }
+      return cords;
+    
+  }
 
 
 
