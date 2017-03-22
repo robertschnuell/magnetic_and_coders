@@ -1,4 +1,9 @@
 import themidibus.*; 
+
+import mqtt.*;
+
+MQTTClient client;
+
 MidiBus testMidi; 
 
 
@@ -13,25 +18,33 @@ void setup() {
 
 
   testMidi = new MidiBus(this, "LPD8", -1); 
-  
-  
+
+
   //INI INSTALLATION
   float pos[][] = new float[1][2];
   pos[0][0] = width/4;
   pos[0][1] = 100;
- // pos[1][0] = width/4*2;
+  // pos[1][0] = width/4*2;
   //pos[1][1] = 100;
-  installation = new Installation(1,pos,1);
+  installation = new Installation(1, pos, 1, 1);
 
 
+  //TEST MIDI 
+  client = new MQTTClient(this);
+  client.connect("mqtt://localhost");
 }
 
 
 
 void draw() {
   background(0);
-  
+
   installation.update();
+
+
+  client.publish("topic/state", str(installation.getCubeCoordinates(0,0,0)[0][1]));
+  
+  //println(tmp[0][0]);
 
   //left.update();
   //right.update();
@@ -43,31 +56,25 @@ public void keyPressed()
     if (keyCode == UP) {
       //send up
 
-     // left.checkKey(0);
-     // right.checkKey(0);
+      // left.checkKey(0);
+      // right.checkKey(0);
     } else if (keyCode == DOWN) {
       //send down
-     // left.checkKey(1);
-     // right.checkKey(1);
+      // left.checkKey(1);
+      // right.checkKey(1);
     } else if (keyCode == LEFT) {
       //send left
-     // left.checkKey(2);
-     // right.checkKey(2);
+      // left.checkKey(2);
+      // right.checkKey(2);
     } else if (keyCode == RIGHT) {
       //send right
-     // left.checkKey(3);
-     // right.checkKey(3);
+      // left.checkKey(3);
+      // right.checkKey(3);
     }
   }
 
 
-  if (key == '1' )
-  {
-    println(1);
-   // left.showStates(!left.getShowStates());
-  } else if (key == '2' ) {
-   // right.showStates(!right.getShowStates());
-  }
+  installation.checkKey(key);
 }
 
 
@@ -85,28 +92,28 @@ void controllerChange(int channel, int number, int value) {
 
   switch(number) {
   case 1:
-    installation.setColumnPerc(0,0, tmpPerc);
+    installation.setColumnPerc(0, 0, tmpPerc);
     break;
   case 2: 
-    installation.setColumnPerc(0,1, tmpPerc);
+    installation.setColumnPerc(0, 1, tmpPerc);
     break;
   case 3:
-    installation.setColumnPerc(0,2, tmpPerc);
+    installation.setColumnPerc(0, 2, tmpPerc);
     break;
   case 4: 
-    installation.setColumnPerc(0,3, tmpPerc);
+    installation.setColumnPerc(0, 3, tmpPerc);
     break;
   case 5:
-    installation.setColumnPerc(1,0, tmpPerc);
+    installation.setColumnPerc(1, 0, tmpPerc);
     break;
   case 6:
-    installation.setColumnPerc(1,1, tmpPerc);
+    installation.setColumnPerc(1, 1, tmpPerc);
     break;
   case 7: 
-    installation.setColumnPerc(1,2, tmpPerc);
+    installation.setColumnPerc(1, 2, tmpPerc);
     break;
   case 8:
-    installation.setColumnPerc(1,3, tmpPerc);
+    installation.setColumnPerc(1, 3, tmpPerc);
     break;
   default:
   }

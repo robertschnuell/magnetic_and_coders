@@ -5,11 +5,11 @@ class Side {
   private boolean showStates = true;
 
 
-  protected Side(int amount, float x, float y) {
+  protected Side(int amount, int cubes, float x, float y) {
     columns = new ArrayList<Column>();
 
     for ( int i = 0; i < amount; i++) {
-      Column c = new Column( 4, x+ 75*i, y, 50);
+      Column c = new Column( cubes, x+ 75*i, y, 50);
       columns.add(c);
     }
 

@@ -1,0 +1,7 @@
+class ControlView {
+  
+  
+  protected ControlView() {
+  }
+  
+}

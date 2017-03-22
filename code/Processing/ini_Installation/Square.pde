@@ -189,6 +189,8 @@ class Square {
         cords[i][1] = master.getY(i);
       }
       return cords;
+      
+      
     
   }
 
