@@ -1,5 +1,13 @@
 class Column {
-
+  /*
+ magnetic and coders - engine
+   by 
+   Jannik Bussmann
+   Dirk Erdmann
+   Robert Schnüll
+   
+   @author Robert Schnüll <@robertschnuell>
+   */
 
   //Lists
   private ArrayList<Square> squaresList = null;
@@ -10,10 +18,10 @@ class Column {
   private boolean active = false;
 
   private float iniX, iniY;
-  
+
   private float perc = 0;
   private int id;
-  
+
 
   //
 
@@ -47,9 +55,8 @@ class Column {
     }
     this.iniX = x1;
     this.iniY = y1;
-    
-    this.id = id;
 
+    this.id = id;
   }
 
   void update() {
@@ -195,14 +202,14 @@ class Column {
       squares[i].showStates(s);
     }
   }
-  
+
   protected float getPerc() {
     return this.perc;
   }
   protected void setPerc(float p) {
     this.perc = p;
   }
-  
+
   protected float[][] getCubeCords(int pos) {
     return squares[pos].getCords();
   }

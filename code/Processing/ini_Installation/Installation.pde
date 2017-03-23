@@ -1,4 +1,17 @@
 class Installation {
+  
+  /*
+ magnetic and coders - engine
+ by 
+ Jannik Bussmann
+ Dirk Erdmann
+ Robert Schnüll
+ 
+ @author Robert Schnüll <@robertschnuell>
+ @date 23/03/2017
+ 
+ Simulation possible via: ../simulation/ArduinoMqttSimulator/ArduinoMqttSimulator.pde
+ */
 
   private Side sides [];
 
@@ -37,7 +50,7 @@ class Installation {
   protected void setColumnPerc( int side, int col, float val) {
     sides[side].setPerc(col, val);
   }
-  
+
   protected void setTotalColumnPerc(int c, float val) {
     sides[c/colCount].setPerc(c%colCount, val);
   }
@@ -47,9 +60,22 @@ class Installation {
       sides[i].checkMouse();
     }
   }
-  
+
   protected int getTotalColumnsCount() {
     return this.totalColumns;
+  }
+
+  protected void parseMqttMsg(String topic, byte[] payload) {
+    String tmp = new String(payload);
+    for ( int i = 0; i< getTotalColumnsCount(); i++) {
+
+      String id = topic.substring(0, topic.indexOf("/"));
+      // println(id);
+      if (id.equals( "a"+ i)) {
+        //println(int(id.substring(1)));
+        setTotalColumnPerc(int(id.substring(1)), float(tmp));
+      }
+    }
   }
 
 

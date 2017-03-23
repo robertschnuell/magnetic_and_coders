@@ -1,21 +1,26 @@
 import themidibus.*; 
-
 import mqtt.*;
 
-MQTTClient client;
+/*
+ magnetic and coders - engine
+ by 
+ Jannik Bussmann
+ Dirk Erdmann
+ Robert Schnüll
+ 
+ */
 
+/////////////////////INSTANCES /////////////////// 
+MQTTClient client;
 MidiBus testMidi; 
 
-
 Installation installation;
+/////////////////////INSTANCES END ///////////////////
 
 
 
 void setup() {
-
   size(1280, 720);
-  background(0);
-
 
   testMidi = new MidiBus(this, "LPD8", -1); 
 
@@ -23,13 +28,11 @@ void setup() {
   client = new MQTTClient(this);
   client.connect("mqtt://localhost");
 
-
-
   //INI INSTALLATION
   float pos[][] = new float[2][2];
   pos[0][0] = width/4;
   pos[0][1] = 100;
-   pos[1][0] = width/4*2;
+  pos[1][0] = width/4*2;
   pos[1][1] = 100;
   installation = new Installation(2, pos, 2, 1);
 }
@@ -38,34 +41,22 @@ void setup() {
 
 void draw() {
   background(0);
-
   installation.update();
-
-
-  // client.publish("topic/state", str(installation.getCubeCoordinates(0,0,0)[0][1]));
-
-
-
-  //println(tmp[0][0]);
-
-  //left.update();
-  //right.update();
 }
 
+
+/////////////////////MQTT ///////////////////
 void messageReceived(String topic, byte[] payload) { 
-  String tmp = new String(payload); 
-  //installation.setColumnPerc(0, 0, float(tmp));
-
-  for ( int i = 0; i< installation.getTotalColumnsCount(); i++) {
-
-    String id = topic.substring(0, topic.indexOf("/"));
-    println(id);
-    if (id.equals( "a"+ i)) {
-      println(int(id.substring(1)));
-      installation.setTotalColumnPerc(int(id.substring(1)), float(tmp));
-    }
+  if (topic.charAt(0) == 'a') {
+    installation.parseMqttMsg(topic, payload);
   }
 }
+/////////////////////MQTT END ///////////////////
+
+
+
+
+/////////////////////INPUT LISTENER ///////////////////
 
 public void keyPressed()
 {
@@ -141,3 +132,5 @@ void controllerChange(int channel, int number, int value) {
   default:
   }
 }
+
+/////////////////////INPUT LISTENER END ///////////////////

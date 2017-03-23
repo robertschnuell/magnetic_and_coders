@@ -1,4 +1,13 @@
 class Side {
+  /*
+ magnetic and coders - engine
+   by 
+   Jannik Bussmann
+   Dirk Erdmann
+   Robert Schnüll
+   
+   @author Robert Schnüll <@robertschnuell>
+   */
 
   private ArrayList<Column>columns;
 
@@ -71,7 +80,7 @@ class Side {
       columns.get(i).showStates(showStates);
     }
   }
-  
+
   protected float[][] getCubeCords(int col, int pos) {
     return columns.get(col).getCubeCords(pos);
   }

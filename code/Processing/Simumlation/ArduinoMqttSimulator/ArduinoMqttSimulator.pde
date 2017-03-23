@@ -3,37 +3,35 @@ import mqtt.*;
 
 MQTTClient client;
 
-
-ColumnArduino a1;
-
 ArrayList<ColumnArduino> arduinos;
+
+int totalAmountOfColumns;
+
+
 
 void setup() {
   client = new MQTTClient(this);
   client.connect("mqtt://localhost");
 
   arduinos = new ArrayList<ColumnArduino>();
+  
+  totalAmountOfColumns = 4;  // <- corresponding to engine (sides*columCount)
 
-  for ( int i = 0; i < 4; i++) {
+  for ( int i = 0; i < totalAmountOfColumns; i++) { 
     ColumnArduino tmp = new ColumnArduino("a"+ i, 100, 1000, 3);
 
     arduinos.add(tmp);
   }
 
-  // a1 = new ColumnArduino("a1", 100, 1000, 10);
 }
 
 void draw() {
-  //a1.update();
-
   for ( int i = 0; i< arduinos.size(); i++) {
     arduinos.get(i).update();
   }
 }
 
 void messageReceived(String topic, byte[] payload) {
-  //println("new message: " + topic + " - " + new String(payload));
-
   String tmp = new String(payload);
 
   for ( int i = 0; i< arduinos.size(); i++) {
