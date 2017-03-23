@@ -6,16 +6,29 @@ MQTTClient client;
 
 ColumnArduino a1;
 
+ArrayList<ColumnArduino> arduinos;
+
 void setup() {
   client = new MQTTClient(this);
   client.connect("mqtt://localhost");
 
-  a1 = new ColumnArduino("a1", 100, 1000, 1);
-  client.subscribe("a1/target");
+  arduinos = new ArrayList<ColumnArduino>();
+
+  for ( int i = 0; i < 4; i++) {
+    ColumnArduino tmp = new ColumnArduino("a"+ i, 100, 1000, 10);
+
+    arduinos.add(tmp);
+  }
+
+  // a1 = new ColumnArduino("a1", 100, 1000, 10);
 }
 
 void draw() {
-  a1.update();
+  //a1.update();
+
+  for ( int i = 0; i< arduinos.size(); i++) {
+    arduinos.get(i).update();
+  }
 }
 
 void messageReceived(String topic, byte[] payload) {
@@ -23,7 +36,12 @@ void messageReceived(String topic, byte[] payload) {
 
   String tmp = new String(payload);
 
-println(tmp);
+  for ( int i = 0; i< arduinos.size(); i++) {
 
-  a1.goTo(float(tmp));
+    if (topic.substring(0, topic.indexOf("/")).equals( arduinos.get(i).getName())) {
+      arduinos.get(i).goTo(float(tmp));
+    }
+  }
+
+
 }

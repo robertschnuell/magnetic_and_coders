@@ -9,7 +9,7 @@ class Side {
     columns = new ArrayList<Column>();
 
     for ( int i = 0; i < amount; i++) {
-      Column c = new Column( cubes, x+ 75*i, y, 50);
+      Column c = new Column(cubes, x+ 75*i, y, 50);
       columns.add(c);
     }
 

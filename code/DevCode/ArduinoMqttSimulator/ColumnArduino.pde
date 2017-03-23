@@ -19,11 +19,14 @@ class ColumnArduino {
     this.speed = speed;
     current = min;
     target = max;
+    println(name);
+    
+    client.subscribe(name+ "/target");
   }
 
   boolean update() {
 
-    println(current + "\t" + target);
+   // println(current + "\t" + target);
     if (target != current) {
       //SEND TO MQTT
       client.publish(name+ "/current", str(map(current,min,max,0,100)));
@@ -73,5 +76,9 @@ class ColumnArduino {
 
   float getPerc() {
     return map(current, min, max, 0, 100);
+  }
+  
+  String getName() {
+    return this.name;
   }
 }

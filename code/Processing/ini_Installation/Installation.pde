@@ -3,6 +3,8 @@ class Installation {
   private Side sides [];
 
   private ArrayList<Character> keyList;
+  private int totalColumns;
+  private int colCount;
 
   protected Installation( int sideCount, float sidesPos[][], int colCount, int cubeCount) {
     sides = new Side[sideCount];
@@ -14,6 +16,12 @@ class Installation {
     }
 
     keyList = new ArrayList<Character>();
+
+    this.colCount = colCount;
+    this.totalColumns = (sideCount + colCount)-1 ;
+    for ( int i = 0; i < totalColumns; i++) {
+      client.subscribe("a"+ i +"/current");
+    }
   }
 
   public void update() {
@@ -29,11 +37,19 @@ class Installation {
   protected void setColumnPerc( int side, int col, float val) {
     sides[side].setPerc(col, val);
   }
+  
+  protected void setTotalColumnPerc(int c, float val) {
+    sides[c/colCount].setPerc(c%colCount, val);
+  }
 
   protected void checkMouse() {
     for ( int i = 0; i< sides.length; i++) {
       sides[i].checkMouse();
     }
+  }
+  
+  protected int getTotalColumnsCount() {
+    return this.totalColumns;
   }
 
 

@@ -12,6 +12,8 @@ class Column {
   private float iniX, iniY;
   
   private float perc = 0;
+  private int id;
+  
 
   //
 
@@ -45,6 +47,9 @@ class Column {
     }
     this.iniX = x1;
     this.iniY = y1;
+    
+    this.id = id;
+
   }
 
   void update() {
