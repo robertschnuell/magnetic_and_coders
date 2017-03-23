@@ -14,7 +14,7 @@ void setup() {
   client.connect("mqtt://localhost");
 
   arduinos = new ArrayList<ColumnArduino>();
-  
+
   totalAmountOfColumns = 4;  // <- corresponding to engine (sides*columCount)
 
   for ( int i = 0; i < totalAmountOfColumns; i++) { 
@@ -22,7 +22,6 @@ void setup() {
 
     arduinos.add(tmp);
   }
-
 }
 
 void draw() {
@@ -40,6 +39,4 @@ void messageReceived(String topic, byte[] payload) {
       arduinos.get(i).goTo(float(tmp));
     }
   }
-
-
 }
