@@ -84,6 +84,10 @@ class Side {
   protected float[][] getCubeCords(int col, int pos) {
     return columns.get(col).getCubeCords(pos);
   }
+  
+  protected float getPerc(int col) {
+    return columns.get(col).getPerc();
+  }
 
   protected boolean getShowStates() {
     return showStates;

@@ -15,6 +15,7 @@ MQTTClient client;
 MidiBus testMidi; 
 
 Installation installation;
+View view;
 /////////////////////INSTANCES END ///////////////////
 
 
@@ -35,6 +36,8 @@ void setup() {
   pos[1][0] = width/4*2;
   pos[1][1] = 100;
   installation = new Installation(2, pos, 2, 1);
+  
+  view = new View(installation.getSquareCount());
 }
 
 
@@ -42,6 +45,8 @@ void setup() {
 void draw() {
   background(0);
   installation.update();
+  view.newData(installation.getAllCoordinates());
+  view.update();
 }
 
 
