@@ -1,19 +1,27 @@
 class Layer {
-  
-  long start;
-  long duration;
-  Layer(long duration) {
+  /*
+ magnetic and coders - engine
+   by 
+   Jannik Bussmann
+   Dirk Erdmann
+   Robert Schnüll
+   
+   @author Robert Schnüll <@robertschnuell>
+   */
+
+  private long start;
+  private long duration;
+  private Layer(long duration) {
     this.start = millis();
     this.duration = duration;
   }
-  
-  boolean update() {
-    if( (start + duration) < millis() ) {
+
+  private boolean update() {
+    if ( (start + duration) < millis() ) {
       return true;
     } else {
       //do 
       return false;
     }
   }
-    
 }
