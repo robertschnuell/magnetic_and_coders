@@ -19,6 +19,7 @@ class Layer {
   protected boolean update() {
 
     if ( (start + duration) < millis() ) {
+       set.layers.remove(this);
       return true;
     } else {
       //do 
