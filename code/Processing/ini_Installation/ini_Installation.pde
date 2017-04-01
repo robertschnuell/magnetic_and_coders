@@ -21,8 +21,8 @@ View view;
 
 
 void setup() {
-  //size(1080, 1920);
-  fullScreen(2);
+  size(1080, 1920);
+  //fullScreen(SPAN);
   println(width);
   println(height);
 
