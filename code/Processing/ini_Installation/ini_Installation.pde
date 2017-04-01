@@ -16,6 +16,7 @@ MidiBus testMidi;
 
 Installation installation;
 View view;
+Set set;
 /////////////////////INSTANCES END ///////////////////
 
 
@@ -33,14 +34,18 @@ void setup() {
   client.connect("mqtt://localhost");
 
   //INI INSTALLATION
-  float pos[][] = new float[1][2];
+  float pos[][] = new float[2][2];
   pos[0][0] = 930;
   pos[0][1] = 750;
-  //pos[1][0] = width/4*2;
-  //pos[1][1] = 100;
-  installation = new Installation(1, pos, 1, 1);
-  
+  pos[1][0] = width/4*3;
+  pos[1][1] = 100;
+
+  pos[0][0] = 300;
+  pos[0][1] = 100;
+  installation = new Installation(2, pos, 4, 6);
+
   view = new View(installation.getSquareCount());
+  set  = new Set();
 }
 
 
@@ -50,6 +55,7 @@ void draw() {
   installation.update();
   view.newData(installation.getAllCoordinates());
   view.update();
+  set.update();
 }
 
 
@@ -141,6 +147,12 @@ void controllerChange(int channel, int number, int value) {
     installation.setColumnPerc(1, 3, tmpPerc);
     break;
   default:
+  }
+}
+
+void noteOff(int channel, int pitch, int velocity) {
+  if(pitch == 41) {
+    set.addLayer("FILL_CUBE_RIGHT");
   }
 }
 

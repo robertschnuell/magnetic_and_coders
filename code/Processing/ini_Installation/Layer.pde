@@ -9,14 +9,15 @@ class Layer {
    @author Robert Schnüll <@robertschnuell>
    */
 
-  private long start;
-  private long duration;
-  private Layer(long duration) {
+  protected long start;
+  protected long duration;
+  protected Layer(long duration) {
     this.start = millis();
     this.duration = duration;
   }
 
-  private boolean update() {
+  protected boolean update() {
+
     if ( (start + duration) < millis() ) {
       return true;
     } else {

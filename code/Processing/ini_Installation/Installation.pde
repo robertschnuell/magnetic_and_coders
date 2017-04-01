@@ -113,9 +113,11 @@ class Installation {
 
   protected float[][][] getAllCoordinates() {
     float[][][] tmp = new float[getSquareCount()][4][2];
+    
+   
 
     for ( int i = 0; i < getSquareCount(); i++) {
-      float [][] sTmp = getCubeCoordinates(0, 0, 0);
+      float [][] sTmp = getCubeCoordinates(0, 0, 0);//has to be fixed
 
       for ( int j = 0; j < 4; j++) {
         for ( int k = 0; k < 2; k++) {

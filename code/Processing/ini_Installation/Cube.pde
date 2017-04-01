@@ -3,7 +3,7 @@ class Cube {
   float[][] coordinates = new float [4][2];
   float[][] fCoordinates = new float [4][2];
 
-  boolean fill = true;
+  boolean fill = false;
   boolean stroke = true;
 
   color fillColor = color(255, 255, 255);
@@ -44,6 +44,7 @@ class Cube {
     endShape(CLOSE);
 
     strokeCap(ROUND);
+
   }
 
 
@@ -219,7 +220,7 @@ class Cube {
 
 
 
-  protected void drawFill(String type, float percent, color c) {
+  public void drawFill(String type, float percent, color c) {
     calcFillCoords(type, percent);
     fill(c);
     noStroke();

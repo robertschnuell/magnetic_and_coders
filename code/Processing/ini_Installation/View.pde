@@ -1,11 +1,11 @@
 class View {
   
   
-  ArrayList <Cube>cubes;
+  public ArrayList <Cube>cubes;
   
   View(int cubeCount) {
     cubes = new ArrayList <Cube>();
-    
+
     for ( int i = 0; i< cubeCount; i++) {
       cubes.add(new Cube());
     }
@@ -24,6 +24,10 @@ class View {
       tmp = d[i];
       cubes.get(i).newData(tmp);
     }
+  }
+  
+  protected int getCubeCount() {
+    return cubes.size();
   }
   
 }
