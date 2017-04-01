@@ -56,6 +56,12 @@ class Installation {
   protected int getTotalColumnsCount() {
     return this.totalColumns;
   }
+  
+  protected void checkKey(int k) {
+    for ( int i = 0; i  < sides.length; i++) {
+      sides[i].checkKey(k);
+    }
+  }
 
 
 

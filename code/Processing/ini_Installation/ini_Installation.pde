@@ -21,7 +21,10 @@ View view;
 
 
 void setup() {
-  size(1280, 720);
+  //size(1080, 1920);
+  fullScreen(2);
+  println(width);
+  println(height);
 
   testMidi = new MidiBus(this, "LPD8", -1); 
 
@@ -30,12 +33,12 @@ void setup() {
   client.connect("mqtt://localhost");
 
   //INI INSTALLATION
-  float pos[][] = new float[2][2];
-  pos[0][0] = width/4;
-  pos[0][1] = 100;
-  pos[1][0] = width/4*2;
-  pos[1][1] = 100;
-  installation = new Installation(2, pos, 2, 1);
+  float pos[][] = new float[1][2];
+  pos[0][0] = 930;
+  pos[0][1] = 750;
+  //pos[1][0] = width/4*2;
+  //pos[1][1] = 100;
+  installation = new Installation(1, pos, 1, 1);
   
   view = new View(installation.getSquareCount());
 }
@@ -71,21 +74,24 @@ public void keyPressed()
   if (key == CODED) {
     if (keyCode == UP) {
       //send up
-      client.publish("a0/target", str(random(0, 100)));
-      // left.checkKey(0);
+      //client.publish("a0/target", str(random(0, 100)));
+      installation.checkKey(0);
       // right.checkKey(0);
     } else if (keyCode == DOWN) {
-      client.publish("a1/target", str(random(0, 100)));
+      //client.publish("a1/target", str(random(0, 100)));
+      installation.checkKey(1);
       //send down
       // left.checkKey(1);
       // right.checkKey(1);
     } else if (keyCode == LEFT) {
-      client.publish("a2/target", str(random(0, 100)));
+      //client.publish("a2/target", str(random(0, 100)));
+      installation.checkKey(2);
       //send left
       // left.checkKey(2);
       // right.checkKey(2);
     } else if (keyCode == RIGHT) {
-      client.publish("a3/target", str(random(0, 100)));
+      //client.publish("a3/target", str(random(0, 100)));
+      installation.checkKey(3);
       //send right
       // left.checkKey(3);
       // right.checkKey(3);
