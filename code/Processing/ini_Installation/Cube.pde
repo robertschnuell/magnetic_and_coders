@@ -78,15 +78,14 @@ class Cube {
 
     strokeCap(ROUND);
 
-
+    if (drawFill) {
+      drawFill(drawFillType, drawFillPercent, fillColor);
+    }
     if (animateStroke) {
       animateStroke(animateStrokeType, animateStrokePercent, strokeColor);
     }
     if (outline) {
       outline(outlineType, strokeColor);
-    }
-    if (drawFill) {
-      drawFill(drawFillType, drawFillPercent, fillColor);
     }
     if (drawOutline) {
       drawFill(drawFillType, drawFillPercent, fillColor);
@@ -143,8 +142,8 @@ class Cube {
     this.animateStrokeType = t;
     if ( p >= 100) {
       this.animateStroke = false;
-    //  this.stroke = true;
-    //  this.strokeColor = c;
+      //  this.stroke = true;
+      //  this.strokeColor = c;
     }
     if ( p <= 0) {
       this.animateStroke = false;
@@ -183,8 +182,8 @@ class Cube {
     this.drawFillType = t;
     if (p >= 100) {
       this.drawFill = false;
-    //  this.fill = true;
-    //  this.fillColor = c;
+      //  this.fill = true;
+      //  this.fillColor = c;
     }
     if ( p <= 0) {
       this.drawFill = false;
@@ -210,8 +209,8 @@ class Cube {
     this.drawOutlineSubtype = st;
     if (p >= 100) {
       this.drawOutline = false;
-     // this.stroke = true;
-     // this.strokeColor = c;
+      // this.stroke = true;
+      // this.strokeColor = c;
     }
     if ( p <= 0) {
       this.drawOutline = false;
