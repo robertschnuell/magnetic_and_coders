@@ -56,7 +56,7 @@ class Installation {
   protected int getTotalColumnsCount() {
     return this.totalColumns;
   }
-  
+
   protected void checkKey(int k) {
     for ( int i = 0; i  < sides.length; i++) {
       sides[i].checkKey(k);
@@ -113,11 +113,11 @@ class Installation {
 
   protected float[][][] getAllCoordinates() {
     float[][][] tmp = new float[getSquareCount()][4][2];
-    
-   
+
+
     int cColCount = 0;
     for ( int i = 0; i < getSquareCount(); i++) {
-      if(i%cubeCount == 0 && i >0) {
+      if (i%cubeCount == 0 && i >0) {
         cColCount++;
       }
       float [][] sTmp = getCubeCoordinates(cColCount/colCount, cColCount%colCount, i%cubeCount);
@@ -130,6 +130,13 @@ class Installation {
     }
 
     return tmp;
+  }
+
+  protected boolean columnMoveTo( int c, float percent) {
+    if ( (c > 0) && (c < totalColumns) ){
+      client.publish("a"+c+"/target", str(percent));
+      return true;
+    } else return false;
   }
 
 

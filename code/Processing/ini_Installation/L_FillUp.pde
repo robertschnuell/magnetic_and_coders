@@ -2,6 +2,7 @@ class L_FillUp extends Layer {
 
   private int id; 
   private float fill; 
+  
   protected L_FillUp(int cubeId, long duration) {
     super(duration);
     this.id = cubeId;
@@ -16,6 +17,7 @@ class L_FillUp extends Layer {
 
     if ( response) {
       view.cubes.get(id).setDrawFill(false);
+      
       super.selfdestuction();
     }
     return response;

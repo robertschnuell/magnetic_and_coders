@@ -11,6 +11,7 @@ class Layer {
 
   protected long start;
   protected long duration;
+  protected String type;
   protected Layer(long duration) {
     this.start = millis();
     this.duration = duration;

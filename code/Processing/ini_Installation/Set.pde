@@ -9,7 +9,7 @@ class Set {
    @author Robert Schnüll <@robertschnuell>
    */
 
-  protected ArrayList <Layer> layers;
+  public ArrayList <Layer> layers;
 
   protected Set() {
     layers = new ArrayList<Layer>();
@@ -20,7 +20,9 @@ class Set {
 
   
     for ( int i = 0; i< layers.size(); i++) {
-     layers.get(i).update();
+     if(layers.get(i).update()) {
+       layers.add(new L_FillUp(int(random(0, view.getCubeCount())), int(random(100,1000))));
+     }
     }
 
   }
