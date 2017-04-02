@@ -22,7 +22,7 @@ class Installation {
 
   protected Installation( int sideCount, float sidesPos[][], int colCount, int cubeCount) {
     sides = new Side[sideCount];
-
+  
     if (sideCount == sidesPos.length) {
       for ( int i = 0; i < sidesPos.length; i++) {
         sides[i] = new Side(colCount, cubeCount, sidesPos[i][0], sidesPos[i][1]);
@@ -34,7 +34,7 @@ class Installation {
     this.colCount = colCount;
     this.cubeCount = cubeCount;
     this.totalColumns = (sideCount + colCount)-1 ;
-    for ( int i = 0; i < totalColumns; i++) {
+    for ( int i = 0; i < sideCount*colCount; i++) {
       client.subscribe("a"+ i +"/current");
     }
   }
@@ -67,16 +67,18 @@ class Installation {
 
   protected void parseMqttMsg(String topic, byte[] payload) {
     String tmp = new String(payload);
-    for ( int i = 0; i< getTotalColumnsCount(); i++) {
+    for ( int i = 0; i< colCount*sides.length; i++) {
 
       String id = topic.substring(0, topic.indexOf("/"));
       // println(id);
       if (id.equals( "a"+ i)) {
         //println(int(id.substring(1)));
         setTotalColumnPerc(int(id.substring(1)), float(tmp));
+        controlView.setCurrent(int(id.substring(1)), float(tmp));
       }
     }
   }
+  
 
 
   protected void checkKey(char k) {
@@ -133,10 +135,27 @@ class Installation {
   }
 
   protected boolean columnMoveTo( int c, float percent) {
-    if ( (c > 0) && (c < totalColumns) ){
+    if ( (c > 0) && (c < sides.length*colCount) ){
       client.publish("a"+c+"/target", str(percent));
       return true;
     } else return false;
+  }
+  
+  protected int getSideCount() {
+    return this.sides.length;
+  }
+  protected int getColumnsPerSideCount() {
+    return this.colCount;
+  }
+
+  protected int getCubeCount() {
+    return this.cubeCount;
+  }
+  
+  
+  protected void setTarget(int c , float p ) {
+    client.publish("a"+ c + "/target", str(p));
+    controlView.setTarget(c,p);
   }
 
 
