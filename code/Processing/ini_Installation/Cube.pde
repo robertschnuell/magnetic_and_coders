@@ -1,5 +1,13 @@
 class Cube {
-
+  /*
+ magnetic and coders - engine
+   by 
+   Jannik Bussmann
+   Dirk Erdmann
+   Robert Schnüll
+   
+   @author Robert Schnüll <@robertschnuell>
+   */
   float[][] coordinates = new float [4][2];
   float[][] fCoordinates = new float [4][2];
 
@@ -44,7 +52,6 @@ class Cube {
     endShape(CLOSE);
 
     strokeCap(ROUND);
-
   }
 
 
@@ -275,5 +282,5 @@ class Cube {
     fCoordinates[swaps[3]][1] = coordinates[swaps[2]][1] - steps[3]/100*percent;
   }
 
-    /////////////////////STOKE ANIMATION END ///////////////////
+  /////////////////////STOKE ANIMATION END ///////////////////
 }

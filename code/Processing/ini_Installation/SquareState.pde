@@ -1,4 +1,13 @@
 class SquareState {
+      /*
+ magnetic and coders - engine
+   by 
+   Jannik Bussmann
+   Dirk Erdmann
+   Robert Schnüll
+   
+   @author Robert Schnüll <@robertschnuell>
+   */
 
   private float x1, x2, x3, x4, y1, y2, y3, y4;
   private boolean active = false;

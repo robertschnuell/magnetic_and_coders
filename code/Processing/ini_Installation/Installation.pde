@@ -8,9 +8,9 @@ class Installation {
    Robert Schnüll
    
    @author Robert Schnüll <@robertschnuell>
-   @date 23/03/2017
+   @date 01/04/2017
    
-   Simulation possible via: ../simulation/ArduinoMqttSimulator/ArduinoMqttSimulator.pde
+   Simulation available via: ../simulation/ArduinoMqttSimulator/ArduinoMqttSimulator.pde
    */
 
   private Side sides [];
@@ -115,9 +115,12 @@ class Installation {
     float[][][] tmp = new float[getSquareCount()][4][2];
     
    
-
+    int cColCount = 0;
     for ( int i = 0; i < getSquareCount(); i++) {
-      float [][] sTmp = getCubeCoordinates(0, 0, 0);//has to be fixed
+      if(i%cubeCount == 0 && i >0) {
+        cColCount++;
+      }
+      float [][] sTmp = getCubeCoordinates(cColCount/colCount, cColCount%colCount, i%cubeCount);//has to be fixed
 
       for ( int j = 0; j < 4; j++) {
         for ( int k = 0; k < 2; k++) {

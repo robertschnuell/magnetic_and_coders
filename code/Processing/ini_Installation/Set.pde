@@ -9,7 +9,7 @@ class Set {
    @author Robert Schnüll <@robertschnuell>
    */
 
-  public ArrayList <Layer> layers;
+  protected ArrayList <Layer> layers;
 
   protected Set() {
     layers = new ArrayList<Layer>();
