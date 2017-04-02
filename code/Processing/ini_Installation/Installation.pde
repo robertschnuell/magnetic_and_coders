@@ -120,7 +120,7 @@ class Installation {
       if(i%cubeCount == 0 && i >0) {
         cColCount++;
       }
-      float [][] sTmp = getCubeCoordinates(cColCount/colCount, cColCount%colCount, i%cubeCount);//has to be fixed
+      float [][] sTmp = getCubeCoordinates(cColCount/colCount, cColCount%colCount, i%cubeCount);
 
       for ( int j = 0; j < 4; j++) {
         for ( int k = 0; k < 2; k++) {

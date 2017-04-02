@@ -8,16 +8,41 @@ class Cube {
    
    @author Robert Schnüll <@robertschnuell>
    */
-  float[][] coordinates = new float [4][2];
-  float[][] fCoordinates = new float [4][2];
+  private float[][] coordinates = new float [4][2];
+  private float[][] fCoordinates = new float [4][2];
 
-  boolean fill = false;
-  boolean stroke = true;
+  private boolean fill = false;
+  private boolean stroke = true;
 
-  color fillColor = color(255, 255, 255);
-  color strokeColor = color(255, 255, 255);
+  private color fillColor = color(255, 255, 255);
+  private color strokeColor = color(255, 255, 255);
 
-  int strokeWidth = 1;
+  private int strokeWidth = 1;
+
+  //animated stroke and outlines
+  private boolean animateStroke = false;
+  private int animateStrokeType = 0; 
+  private float animateStrokePercent = 0;
+  private color animateStrokeColor = strokeColor;
+
+  private boolean outline = false;
+  private int outlineType = 0;
+  private color outlineColor = strokeColor;
+
+  private boolean drawFill = false;
+  private float drawFillPercent = 0;
+  private String drawFillType ="";
+  private color drawFillColor = strokeColor;
+
+  private boolean drawOutline = false;
+  private float drawOutlinePercent = 0;
+  private int drawOutlineType = 0;
+  private boolean drawOutlineSubtype = false;
+  private color drawOutlineColor = strokeColor;
+
+
+
+
 
   protected Cube(float[][] coords) {
     this.coordinates = coords;
@@ -52,8 +77,22 @@ class Cube {
     endShape(CLOSE);
 
     strokeCap(ROUND);
-  }
 
+
+    if (animateStroke) {
+      animateStroke(animateStrokeType, animateStrokePercent, strokeColor);
+    }
+    if (outline) {
+      outline(outlineType, strokeColor);
+    }
+    if (drawFill) {
+      drawFill(drawFillType, drawFillPercent, fillColor);
+    }
+    if (drawOutline) {
+      drawFill(drawFillType, drawFillPercent, fillColor);
+      drawOutline(drawOutlineType, drawOutlineSubtype, drawOutlinePercent, strokeColor);
+    }
+  }
 
   /////////////////////USER GETTER/ SETTER ///////////////////
 
@@ -93,11 +132,128 @@ class Cube {
   }
 
 
+  protected void setAnimateStroke( boolean s) {
+    this.animateStroke = s;
+    this.animateStrokeColor = strokeColor;
+  }
+  protected void setAnimateStroke(boolean s, float p, int t, color c) {
+    this.animateStroke = s;
+    this.animateStrokeColor = c;
+    this.animateStrokePercent = p;
+    this.animateStrokeType = t;
+    if ( p >= 100) {
+      this.animateStroke = false;
+    //  this.stroke = true;
+    //  this.strokeColor = c;
+    }
+    if ( p <= 0) {
+      this.animateStroke = false;
+    }
+  }
+  protected void setAnimateStrokePercent( float p) {
+    this.animateStrokePercent = p;
+  }
+  protected void setAnimateStrokeType(int  t) {
+    this.animateStrokeType = t;
+  }
+
+
+  protected void setOutline( boolean s) {
+    this.outline = s;
+    this.outlineColor = strokeColor;
+  }
+  protected void setOutline(boolean s, int t, color c) {
+    this.outline = s;
+    this.outlineColor = c;
+    this.outlineType = t;
+  }
+  protected void setOutlineType( int t) {
+    this.outlineType = t;
+  }
+
+
+  protected void setDrawFill( boolean s) {
+    this.drawFill = s;
+    this.drawFillColor = fillColor;
+  }
+  protected void setDrawFill(boolean s, float p, String t, color c) {
+    this.drawFill = s;
+    this.drawFillColor = c;
+    this.drawFillPercent = p;
+    this.drawFillType = t;
+    if (p >= 100) {
+      this.drawFill = false;
+    //  this.fill = true;
+    //  this.fillColor = c;
+    }
+    if ( p <= 0) {
+      this.drawFill = false;
+    }
+  }
+  protected void setDrawFillPercent( float p) {
+    this.drawFillPercent = p;
+  }
+  protected void setDrawFillType ( String t) {
+    this.drawFillType = t;
+  }
+
+
+  protected void setDrawOutline(boolean s) {
+    this.drawOutline = s;
+    this.drawOutlineColor = strokeColor;
+  }
+  protected void setDrawOutline(boolean s, float p, int t, boolean st, color c) {
+    this.drawOutline = s;
+    this.drawOutlineColor = c;
+    this.drawOutlinePercent = p;
+    this.drawOutlineType = t;
+    this.drawOutlineSubtype = st;
+    if (p >= 100) {
+      this.drawOutline = false;
+     // this.stroke = true;
+     // this.strokeColor = c;
+    }
+    if ( p <= 0) {
+      this.drawOutline = false;
+    }
+  }
+  protected void setDrawOutlinePercent( float p) {
+    this.drawOutlinePercent = p;
+  }
+  protected void setDrawOutlineType( int t) {
+    this.drawOutlineType = t;
+  }
+  protected void setDrawOutlineSubtype( boolean s) {
+    this.drawOutlineSubtype = s;
+  }
+
+
+
+  /*
+    private boolean animateStroke = false;
+   private int animateStrokeType = 0; 
+   private float animateStrokePercent = 0;
+   
+   private boolean outline = false;
+   private int outlineType = 0;
+   
+   private boolean drawFill = false;
+   private float drawFillPercent = 0;
+   private String drawFillType ="";
+   
+   private boolean drawOutline = false;
+   private float drawOutlinePercent = 0;
+   private int drawOutlineType = 0;
+   private boolean drawOutlineSubtype = false;
+   
+   */
+
+
   /////////////////////USER GETTER/ SETTER END  ///////////////////
 
   /////////////////////STOKE ANIMATION ///////////////////
 
-  protected void animateStroke(int type, float percent, color c) {
+  private void animateStroke(int type, float percent, color c) {
 
     if ( type == 0) {
       if (percent < 25) {
@@ -136,7 +292,7 @@ class Cube {
     }
   }
 
-  protected void outline(int type, color c) {
+  private void outline(int type, color c) {
     noFill();
     stroke(c);
     switch(type) {
@@ -157,7 +313,7 @@ class Cube {
   }
 
 
-  protected void drawOutline(int type, boolean subtype, float percent, color c) {
+  private void drawOutline(int type, boolean subtype, float percent, color c) {
 
     noFill();
     stroke(c);
@@ -227,7 +383,7 @@ class Cube {
 
 
 
-  public void drawFill(String type, float percent, color c) {
+  private void drawFill(String type, float percent, color c) {
     calcFillCoords(type, percent);
     fill(c);
     noStroke();
