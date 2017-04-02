@@ -30,6 +30,9 @@ class Set {
   protected void addLayer(String type) {
     if (type.equals("FILL_CUBE_RIGHT")) {
       layers.add(new L_FillUp(int(random(0, view.getCubeCount())), 1000));
+    } else if (type.equals("SINUS")) {
+      layers.add(new ML_Sinus(10000,1,7,.075,75) );
+      //ML_Sinus(int duration, int from, int to, float speed, float amp)
     }
   }
 }
