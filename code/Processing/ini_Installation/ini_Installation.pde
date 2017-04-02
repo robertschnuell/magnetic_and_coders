@@ -46,6 +46,7 @@ void setup() {
 
   view = new View(installation.getSquareCount());
   set  = new Set();
+  staticDev();
 }
 
 
@@ -56,6 +57,17 @@ void draw() {
   view.newData(installation.getAllCoordinates());
   view.update();
   set.update();
+}
+
+void staticDev() {
+    installation.setColumnPerc(0, 0, 50);
+    installation.setColumnPerc(0, 1, 50);
+    installation.setColumnPerc(0, 2, 50);
+    installation.setColumnPerc(0, 3, 50);
+    installation.setColumnPerc(1, 0, 50);
+    installation.setColumnPerc(1, 1, 50);
+    installation.setColumnPerc(1, 2, 50);
+    installation.setColumnPerc(1, 3, 50);
 }
 
 

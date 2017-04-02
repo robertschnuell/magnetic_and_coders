@@ -16,6 +16,7 @@ the last named function overlaps the aforementioned functions
 
 ### protected void setFill( boolean f)
   - f: true | false   : activate fill and draws this in update()
+
 ### protected void setStroke( boolean s)
   - s: true | false   : activate fill and draws this in update()
 
