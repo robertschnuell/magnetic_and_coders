@@ -1,6 +1,6 @@
 ![magnetic and coders](misc/MagneticAndCoders-Logo_small.png "magnetic and coders")
 
-"magnetic and coders" is an Interactive Installation and performance created in 2017. First shown at the European Media Art Festival - Nightshift 29.04.2017 in Osnabrück, Germany.
+"magnetic and coders" is an Interactive Installation and performance created in 2017. It will shown first at the European Media Art Festival - Nightshift 29.04.2017 in Osnabrück, Germany.
 
 ## Abstract
 The installation and live performance "magnetic and coders" messes with the viewer's perception of space and creates an immersive experience through the synergy of sculpting soundscapes. Stacked cubes construct and deconstruct the room continuously with kinetic movement and are enhanced by a projection mapping. A cinema scope projection surface accommodates further reactive visuals.
@@ -8,24 +8,24 @@ The installation and live performance "magnetic and coders" messes with the view
 ## Authors
 *alphabetically sorted*
  - Jannik Bussmann
-    - twitter: @jannikbussmann
+    - twitter: [@jannikbussmann](https://twitter.com/jannik_bussmann)
     - http://jannikbussmann.de
     - mail: hello@jannikbussmann.de
-    - github: jannikbussmann
+    - github: [jannikbussmann](https://github.com/jannikbussmann)
 
 
  - Dirk Erdmann
-    - twitter: @der_erdmann
+    - twitter: [@der_erdmann](https://twitter.com/der_erdmann)
     - http://dirk-erdmann.com
     - mail: mail@dirk-erdmann.com
-    - github:  dererdmann
+    - github:  [dererdmann](https://github.com/dererdmann)
 
 
  - Robert Schnüll
-    - twitter: @robertschnuell
+    - twitter: [@robertschnuell](https://twitter.com/robertschnuell)
     - http://interaktives.design
     - mail: mail@robertschnuell.de
-    - github: robertschnuell
+    - github: [robertschnuell](https://github.com/robertschnuell/)
 
 
 ## Media
