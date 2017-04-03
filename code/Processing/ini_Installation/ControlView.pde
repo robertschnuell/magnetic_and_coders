@@ -7,6 +7,9 @@ class ControlView {
    Robert Schnüll
    
    @author Robert Schnüll <@robertschnuell>
+   
+   license: This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+   - https://creativecommons.org/licenses/by-nc-sa/4.0/
    */
 
 
@@ -39,9 +42,9 @@ class ControlView {
 
   private void drawColumns(int x_, int y_) {
 
-     stroke(255,0,0);
-     line(x,y_,x+size*2,y_);
-     int c = 0;
+    stroke(255, 0, 0);
+    line(x, y_, x+size*2, y_);
+    int c = 0;
     for ( int i = 0; i< installation.getSideCount(); i++) {
       for ( int j = 0; j < installation.getColumnsPerSideCount(); j++) {
 
@@ -50,14 +53,14 @@ class ControlView {
           stroke(255);
           rect(x_ + (cubeSize+ cubeSize/2)*j*1.5, y_+map(currents[c], 0, 100, 0, y_-y) + (cubeSize+ cubeSize/2)*k, cubeSize, cubeSize);
         }
-        
-        
+
+
         float t_ = map(targets[c], 0, 100, 0, y_-y);
-        float c_ = map(currents[c],0,100,0,y_-y);
-        
-        stroke(255,0,0);
-        strokeWeight(map(abs(targets[c]-currents[c]),0,100,0.0f,10.0f));
-        line(x_ + (cubeSize+ cubeSize/2)*j*1.5 + cubeSize/2+2.5, y_+t_,x_ + (cubeSize+ cubeSize/2)*j*1.5 + cubeSize/2+2.5, y_+c_);
+        float c_ = map(currents[c], 0, 100, 0, y_-y);
+
+        stroke(255, 0, 0);
+        strokeWeight(map(abs(targets[c]-currents[c]), 0, 100, 0.0f, 10.0f));
+        line(x_ + (cubeSize+ cubeSize/2)*j*1.5 + cubeSize/2+2.5, y_+t_, x_ + (cubeSize+ cubeSize/2)*j*1.5 + cubeSize/2+2.5, y_+c_);
         strokeWeight(1);
         ellipseMode(CENTER);
         noFill();
@@ -67,13 +70,11 @@ class ControlView {
         noStroke();
         fill(255, 255, 0);
         ellipse(x_ + (cubeSize+ cubeSize/2)*j*1.5 + cubeSize/2+2.5, y_+c_, 5, 5);
-        
+
         c++;
       }
       x_ += 300;
-      
     }
-    
   }
 
 

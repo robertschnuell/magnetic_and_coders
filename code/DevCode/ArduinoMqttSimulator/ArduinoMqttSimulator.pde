@@ -14,7 +14,7 @@ void setup() {
 
   arduinos = new ArrayList<ColumnArduino>();
 
-  for ( int i = 0; i < 4; i++) {
+  for ( int i = 0; i < 8; i++) {
     ColumnArduino tmp = new ColumnArduino("a"+ i, 100, 1000, 3);
 
     arduinos.add(tmp);
@@ -42,6 +42,4 @@ void messageReceived(String topic, byte[] payload) {
       arduinos.get(i).goTo(float(tmp));
     }
   }
-
-
 }

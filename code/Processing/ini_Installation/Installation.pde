@@ -8,9 +8,12 @@ class Installation {
    Robert Schnüll
    
    @author Robert Schnüll <@robertschnuell>
-   @date 01/04/2017
+   @date 03/04/2017
    
    Simulation available via: ../simulation/ArduinoMqttSimulator/ArduinoMqttSimulator.pde
+   
+   license: This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+   - https://creativecommons.org/licenses/by-nc-sa/4.0/
    */
 
   private Side sides [];
@@ -22,7 +25,7 @@ class Installation {
 
   protected Installation( int sideCount, float sidesPos[][], int colCount, int cubeCount) {
     sides = new Side[sideCount];
-  
+
     if (sideCount == sidesPos.length) {
       for ( int i = 0; i < sidesPos.length; i++) {
         sides[i] = new Side(colCount, cubeCount, sidesPos[i][0], sidesPos[i][1]);
@@ -78,7 +81,7 @@ class Installation {
       }
     }
   }
-  
+
 
 
   protected void checkKey(char k) {
@@ -135,12 +138,12 @@ class Installation {
   }
 
   protected boolean columnMoveTo( int c, float percent) {
-    if ( (c > 0) && (c < sides.length*colCount) ){
+    if ( (c > 0) && (c < sides.length*colCount) ) {
       client.publish("a"+c+"/target", str(percent));
       return true;
     } else return false;
   }
-  
+
   protected int getSideCount() {
     return this.sides.length;
   }
@@ -151,11 +154,11 @@ class Installation {
   protected int getCubeCount() {
     return this.cubeCount;
   }
-  
-  
-  protected void setTarget(int c , float p ) {
+
+
+  protected void setTarget(int c, float p ) {
     client.publish("a"+ c + "/target", str(p));
-    controlView.setTarget(c,p);
+    controlView.setTarget(c, p);
   }
 
 

@@ -7,6 +7,9 @@ class Square {
    Robert Schnüll
    
    @author Robert Schnüll <@robertschnuell>
+   
+   license: This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+   - https://creativecommons.org/licenses/by-nc-sa/4.0/
    */
   private  ArrayList<SquareState> states;
 
@@ -15,7 +18,7 @@ class Square {
   private  boolean showStates = true;
   private  boolean showMaster = true;
   private  boolean active = false;
-  
+
 
 
   //Constructors
@@ -185,7 +188,7 @@ class Square {
   protected int getStateActivePoint(int s) {
     return states.get(s).getActivePoint();
   }
-  
+
   protected void showStates(boolean s) {
     showStates = s;
   }
@@ -193,13 +196,10 @@ class Square {
     float[][] cords = new float[4][2];
     for ( int i = 0; i < 4; i++) {
 
-        cords[i][0] = master.getX(i);
-        cords[i][1] = master.getY(i);
-      }
-      return cords;
-      
-      
-    
+      cords[i][0] = master.getX(i);
+      cords[i][1] = master.getY(i);
+    }
+    return cords;
   }
 
 

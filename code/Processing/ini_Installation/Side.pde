@@ -7,6 +7,9 @@ class Side {
    Robert Schnüll
    
    @author Robert Schnüll <@robertschnuell>
+   
+   license: This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+   - https://creativecommons.org/licenses/by-nc-sa/4.0/
    */
 
   private ArrayList<Column>columns;
@@ -84,7 +87,7 @@ class Side {
   protected float[][] getCubeCords(int col, int pos) {
     return columns.get(col).getCubeCords(pos);
   }
-  
+
   protected float getPerc(int col) {
     return columns.get(col).getPerc();
   }

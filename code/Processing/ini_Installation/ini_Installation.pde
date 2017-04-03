@@ -8,6 +8,9 @@ import mqtt.*;
  Dirk Erdmann
  Robert Schnüll
  
+ license: This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ - https://creativecommons.org/licenses/by-nc-sa/4.0/
+ 
  */
 
 /////////////////////INSTANCES /////////////////// 
@@ -17,6 +20,7 @@ MidiBus testMidi;
 Installation installation;
 View view;
 Set set;
+ControlView controlView;
 /////////////////////INSTANCES END ///////////////////
 
 
@@ -46,7 +50,11 @@ void setup() {
 
   view = new View(installation.getSquareCount());
   set  = new Set();
-  staticDev();
+
+
+  controlView = new ControlView(100, 700, 300);
+
+  //staticDev();
 }
 
 
@@ -57,17 +65,19 @@ void draw() {
   view.newData(installation.getAllCoordinates());
   view.update();
   set.update();
+
+  controlView.update();
 }
 
 void staticDev() {
-    installation.setColumnPerc(0, 0, 50);
-    installation.setColumnPerc(0, 1, 50);
-    installation.setColumnPerc(0, 2, 50);
-    installation.setColumnPerc(0, 3, 50);
-    installation.setColumnPerc(1, 0, 50);
-    installation.setColumnPerc(1, 1, 50);
-    installation.setColumnPerc(1, 2, 50);
-    installation.setColumnPerc(1, 3, 50);
+  installation.setColumnPerc(0, 0, 50);
+  installation.setColumnPerc(0, 1, 50);
+  installation.setColumnPerc(0, 2, 50);
+  installation.setColumnPerc(0, 3, 50);
+  installation.setColumnPerc(1, 0, 50);
+  installation.setColumnPerc(1, 1, 50);
+  installation.setColumnPerc(1, 2, 50);
+  installation.setColumnPerc(1, 3, 50);
 }
 
 
@@ -92,7 +102,7 @@ public void keyPressed()
   if (key == CODED) {
     if (keyCode == UP) {
       //send up
-      //client.publish("a0/target", str(random(0, 100)));
+      installation.setTarget(int(random(1, 8)), random(0, 100));
       installation.checkKey(0);
       // right.checkKey(0);
     } else if (keyCode == DOWN) {
@@ -163,8 +173,11 @@ void controllerChange(int channel, int number, int value) {
 }
 
 void noteOff(int channel, int pitch, int velocity) {
-  if(pitch == 41) {
+  println(pitch);
+  if (pitch == 41) {
     set.addLayer("FILL_CUBE_RIGHT");
+  } else if (pitch == 42) {
+    set.addLayer("SINUS");
   }
 }
 

@@ -1,5 +1,17 @@
 class ColumnArduino {
 
+  /*
+ magnetic and coders - engine
+   by 
+   Jannik Bussmann
+   Dirk Erdmann
+   Robert Schnüll
+   
+   license: This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+   - https://creativecommons.org/licenses/by-nc-sa/4.0/
+   
+   */
+
   String name;
   int min, max;
   float speed;
@@ -20,16 +32,16 @@ class ColumnArduino {
     current = min;
     target = max;
     println(name);
-    
+
     client.subscribe(name+ "/target");
   }
 
   boolean update() {
 
-   // println(current + "\t" + target);
+    // println(current + "\t" + target);
     if (target != current) {
       //SEND TO MQTT
-      client.publish(name+ "/current", str(map(current,min,max,0,100)));
+      client.publish(name+ "/current", str(map(current, min, max, 0, 100)));
       if ( target > current) {
         current += speed;
         if (target < current) {
@@ -77,7 +89,7 @@ class ColumnArduino {
   float getPerc() {
     return map(current, min, max, 0, 100);
   }
-  
+
   String getName() {
     return this.name;
   }

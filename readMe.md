@@ -41,7 +41,7 @@ The installation and live performance "magnetic and coders" messes with the view
 
 
 ### Presskit
-[link](https://drive.google.com/drive/folders/0B4C8jd7YW3gCWWYtMVJvZmRvQU0?usp=sharing)
+  - [link](https://drive.google.com/drive/folders/0B4C8jd7YW3gCWWYtMVJvZmRvQU0?usp=sharing)
 
 
 ## License
