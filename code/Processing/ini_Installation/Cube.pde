@@ -15,7 +15,7 @@ class Cube {
   private float[][] fCoordinates = new float [4][2];
 
   private boolean fill = false;
-  private boolean stroke = true;
+  private boolean stroke = false;
 
   private color fillColor = color(255, 255, 255);
   private color strokeColor = color(255, 255, 255);
@@ -91,7 +91,6 @@ class Cube {
       outline(outlineType, strokeColor);
     }
     if (drawOutline) {
-      drawFill(drawFillType, drawFillPercent, fillColor);
       drawOutline(drawOutlineType, drawOutlineSubtype, drawOutlinePercent, strokeColor);
     }
   }

@@ -17,7 +17,10 @@ class Set {
 
   protected Set() {
     layers = new ArrayList<Layer>();
+<<<<<<< Updated upstream
     mLayers = new ArrayList<MLayer>();
+=======
+>>>>>>> Stashed changes
   }
 
   protected void update() {
@@ -28,6 +31,7 @@ class Set {
         // layers.add(new L_FillUp(int(random(0, view.getCubeCount())), int(random(100,1000))));
       }
     }
+<<<<<<< Updated upstream
 
     for ( int i = 0; i< mLayers.size(); i++) {
       mLayers.get(i).update();
@@ -66,6 +70,27 @@ class Set {
   protected void removeMLayer(int id) {
     if ( id < mLayers.size()) {
       mLayers.remove(id);
+=======
+  }
+
+  protected void addLayer(String type) {
+    if (type.equals("FILL_CUBE_RIGHT_LEFT")) {
+      layers.add(new L_Fill(int(random(0, view.getCubeCount())), 1000, "TOP"));
+    } else if (type.equals("FILL_CUBE_TOP_DOWN")) {
+      layers.add(new L_Fill(int(random(0, view.getCubeCount())), 1000, "RIGHT"));
+    } else if (type.equals("FILL_CUBE_LEFT_RIGHT")) {
+      layers.add(new L_Fill(int(random(0, view.getCubeCount())), 1000, "BOTTOM"));
+    } else if (type.equals("FILL_CUBE_DOWN_TOP")) {
+      layers.add(new L_Fill(int(random(0, view.getCubeCount())), 1000, "LEFT"));
+    } else if (type.equals("OUTLINE_CUBE_LEFT_RIGHT")) {
+      layers.add(new L_Outline(int(random(0, view.getCubeCount())), 1000, 7));
+    } else if (type.equals("OUTLINE_CUBE_RIGHT_LEFT")) {
+      layers.add(new L_Outline(int(random(0, view.getCubeCount())), 1000, 1));
+    } else if (type.equals("OUTLINE_CUBE_TOP_DOWN")) {
+      layers.add(new L_Outline(int(random(0, view.getCubeCount())), 1000, 2));
+    } else if (type.equals("OUTLINE_CUBE_DOWN_TOP")) {
+      layers.add(new L_Outline(int(random(0, view.getCubeCount())), 1000, 3));
+>>>>>>> Stashed changes
     }
   }
 }

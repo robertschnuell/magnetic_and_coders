@@ -183,12 +183,47 @@ void controllerChange(int channel, int number, int value) {
 }
 
 void noteOff(int channel, int pitch, int velocity) {
+<<<<<<< Updated upstream
   println(pitch);
   if (pitch == 41) {
     set.addLayer("FILL_CUBE_RIGHT");
   } else if (pitch == 42) {
     set.addLayer("SINUS");
+=======
+  if (pitch == 40) {
+    set.addLayer("FILL_CUBE_RIGHT_LEFT");
+    println("FILL_CUBE_RIGHT_LEFT");
+  }
+  if (pitch == 41) {
+    set.addLayer("FILL_CUBE_TOP_DOWN");
+    println("FILL_CUBE_TOP_DOWN");
+  }
+  if (pitch == 42) {
+    set.addLayer("FILL_CUBE_LEFT_RIGHT");
+    println("FILL_CUBE_LEFT_RIGHT");
+  } 
+  if (pitch == 43) {
+    set.addLayer("FILL_CUBE_DOWN_TOP");
+    println("FILL_CUBE_DOWN_TOP");
+  } 
+  if (pitch == 36) {
+    set.addLayer("OUTLINE_CUBE_LEFT_RIGHT ");
+    println("OUTLINE_CUBE_LEFT_RIGHT ");
+  }
+  if (pitch == 37) {
+    set.addLayer("OUTLINE_CUBE_RIGHT_LEFT");
+    println("OUTLINE_CUBE_RIGHT_LEFT ");
+  }
+  if (pitch == 38) {
+    set.addLayer("OUTLINE_CUBE_TOP_DOWN");
+    println("OUTLINE_CUBE_TOP_DOWN");
+  }
+  if (pitch == 39) {
+    set.addLayer("OUTLINE_CUBE_DOWN_TOP ");
+    println("OUTLINE_CUBE_DOWN_TOP");
+>>>>>>> Stashed changes
   }
 }
+
 
 /////////////////////INPUT LISTENER END ///////////////////
