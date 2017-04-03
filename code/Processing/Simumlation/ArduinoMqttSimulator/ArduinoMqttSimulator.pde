@@ -25,7 +25,7 @@ void setup() {
 
   arduinos = new ArrayList<ColumnArduino>();
 
-  totalAmountOfColumns = 4;  // <- corresponding to engine (sides*columCount)
+  totalAmountOfColumns = 8;  // <- corresponding to engine (sides*columCount)
 
   for ( int i = 0; i < totalAmountOfColumns; i++) { 
     ColumnArduino tmp = new ColumnArduino("a"+ i, 100, 1000, 3);

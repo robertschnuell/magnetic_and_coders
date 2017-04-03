@@ -1,4 +1,4 @@
-class ML_Sinus extends Layer {
+class ML_Sinus extends MLayer {
 
   /*
  magnetic and coders - engine
@@ -26,21 +26,29 @@ class ML_Sinus extends Layer {
 
   long lastCall = 0;
   long interv;
+  int duration;
 
 
 
-  protected ML_Sinus(int duration, int from, int to, float speed, float amp) {
-    super(duration);
-    this.from = from;
+  protected ML_Sinus(int[] usedColumns, int duration, float speed, float amp) {
+        super(usedColumns);
+    
+    this.from = usedColumns[0];
+    int to = 0;
+    if(usedColumns.length > 0) {
+      to = usedColumns[usedColumns.length-1];
+    }
     this.to = to;
     this.speed = speed;
     this.amp = amp;
+    
+    this.duration = duration;
 
     this.dx = (TWO_PI / period) * xspacing;
     this.yvalues = new float[installation.getSideCount()*installation.getColumnsPerSideCount()];
 
 
-    this.interv = int(duration/(6/speed));
+    this.interv = int(duration/(TWO_PI*2/speed));
   }
 
 

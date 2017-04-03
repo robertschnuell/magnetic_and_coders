@@ -126,6 +126,13 @@ public void keyPressed()
     }
   }
 
+  if (key == 'e') {
+    set.addMLayer("SINUS", 1, 4);
+  }
+  if (key == 'r') {
+    set.addMLayer("SINUS", 4, 8);
+  }
+
 
   installation.checkKey(key);
 }
