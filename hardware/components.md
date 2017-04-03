@@ -31,3 +31,4 @@
   - 6x Cardboard boxes white (300mm x 300mm x 300mm)
   - 16x Traverse clamps
   - 160x distance sleeve length 15mm, internal diameter 4.2 mm, polystyrene
+  - around 30x mdf boards 400mm x 400mm x 3mm  
