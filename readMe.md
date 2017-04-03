@@ -1,4 +1,4 @@
-![magnetic and coders](misc/MagneticAndCoders-Logo_small.svg "magnetic and coders")
+![magnetic and coders](misc/MagneticAndCoders-Logo_small.png "magnetic and coders")
 
 "magnetic and coders" is an Interactive Installation and performance created in 2017. First shown at the European Media Art Festival - Nightshift 29.04.2017 in Osnabrück, Germany.
 
