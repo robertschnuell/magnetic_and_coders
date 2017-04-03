@@ -45,11 +45,27 @@ class Set {
 
   protected void addMLayer(String type, int from, int to) {
     int[] tmp = new int[to-from];
-    for ( int i = 0; i < tmp.length;i++) {
+    for ( int i = 0; i < tmp.length; i++) {
       tmp[i] = from+i;
     }
     if (type.equals("SINUS")) {
-      mLayers.add(new ML_Sinus(tmp,10000, .075, 75) );
+      mLayers.add(new ML_Sinus(tmp, 10000, .075, 75) );
+    }
+  }
+  protected void addMLayer(String type) {
+    int[] tmp = new int[installation.getColumns()];
+    for ( int i = 0; i < tmp.length; i++) {
+      tmp[i] = i;
+    }
+    if (type.equals("HOME")) {
+
+      mLayers.add(new ML_Home(tmp, 50) );
+    }
+  }
+
+  protected void removeMLayer(int id) {
+    if ( id < mLayers.size()) {
+      mLayers.remove(id);
     }
   }
 }

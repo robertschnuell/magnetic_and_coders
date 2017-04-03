@@ -216,6 +216,7 @@ class Column {
   protected float[][] getCubeCords(int pos) {
     return squares[pos].getCords();
   }
+  
 
 
 

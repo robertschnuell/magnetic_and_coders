@@ -76,7 +76,7 @@ class ML_Sinus extends MLayer {
     for( int i = this.from; i < this.to+1;i++) {
       installation.setTarget(i,map(constrain(yvalues[i],-amp,amp),-amp,amp,0,100));
     }
-    println("bing");
+
   }
 
 

@@ -155,6 +155,11 @@ class Installation {
     return this.cubeCount;
   }
 
+  protected int getColumns() {
+    return getSideCount()*getColumnsPerSideCount();
+  }
+
+
 
   protected void setTarget(int c, float p ) {
     client.publish("a"+ c + "/target", str(p));

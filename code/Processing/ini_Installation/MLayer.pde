@@ -1,8 +1,17 @@
 class MLayer {
+  /*
+ magnetic and coders - engine
+   by 
+   Jannik Bussmann
+   Dirk Erdmann
+   Robert Schnüll
+   
+   @author Robert Schnüll <@robertschnuell>
+   */
 
   private int[] usedColumns;
   private boolean active;
-  
+
   protected MLayer(int[] usedColumns) {
     this.usedColumns = usedColumns;
     this.active = true;

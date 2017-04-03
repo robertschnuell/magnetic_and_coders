@@ -132,6 +132,9 @@ public void keyPressed()
   if (key == 'r') {
     set.addMLayer("SINUS", 4, 8);
   }
+  if (key == 'h') {
+    set.addMLayer("HOME");
+  }
 
 
   installation.checkKey(key);
