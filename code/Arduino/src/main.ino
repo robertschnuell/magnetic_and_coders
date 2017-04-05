@@ -24,7 +24,8 @@
  int max;
 unsigned int current;
  int target;
-unsigned int speed;
+ int speed;
+int maxSpeed;
 bool status;
 bool limit;
  unsigned int accel;
@@ -50,7 +51,7 @@ byte mac[] = {
   0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED
 };
 IPAddress ip(192, 168, 0, 177);
-IPAddress server(192, 168, 0, 102);
+IPAddress server(192, 168, 0, 105);
 
 EthernetClient ethClient;
 PubSubClient client(ethClient);
@@ -68,7 +69,7 @@ void setup() {
 
 
   mot.setMaxSpeed(speed);
-  mot.setAccel(speed/2);
+  mot.setAccel(0);
 
   client.setServer(server, 1883);
   client.setCallback(callback);
@@ -90,6 +91,7 @@ void ini() {
   status = false;
   limit = false;
   accel = 400;
+  maxSpeed = 800;
 }
 
 double fmap (double sensorValue, double sensorMin, double sensorMax, double outMin, double outMax)
@@ -119,6 +121,7 @@ void loop() {
 
     client.publish("a0/main", temp);
     client.subscribe("a0/target");
+    client.subscribe("a0/speed");
   }
 
 
@@ -155,7 +158,43 @@ void callback(char* topic, byte* payload, unsigned int length) {
   }
   message_buff[i] = '\0';
 
+
   String msgString = String(message_buff);
+  String topicString = String(topic);
+
+
+  byte limiter1 = topicString.indexOf('/');
+  byte limiter2 = topicString.indexOf('/',limiter1+1);
+  String lvl1 = topicString.substring(0,limiter1);
+  String lvl2 = topicString.substring(limiter1+1,limiter2);
+
+  Serial.println(topicString);
+  Serial.println(msgString);
+
+  if(lvl1.equals("a0")) {
+    if(lvl2.equals("target")) {
+
+      if(!iniV) {
+        mot.moveTo(-200);
+        iniV = true;
+        //Serial.println("ini Done");
+        max = -200;
+      }  else {
+
+        int newPos = int(fmap(msgString.toFloat(),0.00,100.00,min,max));
+        mot.moveTo(newPos);
+      }
+
+    } else if (lvl2.equals("speed")) {
+      Serial.println("speed");
+      speed = int(fmap(msgString.toFloat(),0.00,100.00,0,maxSpeed));
+      Serial.println(speed);
+      mot.setMaxSpeed(speed);
+    }
+  }
+
+
+  /*
 
 
   if(!iniV) {
@@ -175,6 +214,8 @@ void callback(char* topic, byte* payload, unsigned int length) {
     //Serial.println(topic);
     //Serial.println(mot.getPos());
   }
+
+  */
 }
 
 
