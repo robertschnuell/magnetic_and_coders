@@ -44,21 +44,42 @@ class Cube {
   private color drawOutlineColor = strokeColor;
 
 
+  //Mapping
+  private boolean mapping;
+  private float[][] mapCoordinates = new float [4][2];
+  private float midX, midY;
+  private float midXPercent, midYPercent;
+  private float mapPercent;
+  private boolean side1, side2, side3, side4, side5;
+  private color cSide1, cSide2, cSide3, cSide4, cSide5;
+
+
 
 
 
   protected Cube(float[][] coords) {
     this.coordinates = coords;
+    iniMapping();
   }
   protected Cube() {
+    iniMapping();
   }
 
   protected void newData(float coords[][]) {
     this.coordinates = coords;
   }
 
+
+
   protected void update() {
 
+
+    if (mapping) {
+      mapping();
+      midXPercent = 50;
+      midYPercent = 50;
+      mapPercent = 50;
+    }
 
 
     if (fill) {
@@ -94,6 +115,99 @@ class Cube {
       drawOutline(drawOutlineType, drawOutlineSubtype, drawOutlinePercent, strokeColor);
     }
   }
+
+  /////////////////////MAPPING ///////////////////
+  private void iniMapping() {
+    setMapping(true);
+
+    setMappingSideColor(0, 255);
+    setMappingSideColor(1, 125);
+    setMappingSideColor(2, 125);
+    setMappingSideColor(3, 255);
+    setMappingSideColor(3, 50);
+  }
+
+  private void mapping() {
+    midX = calcMid(coordinates[0][0], coordinates[1][0], coordinates[2][0], coordinates[3][0], midXPercent);
+    midY = calcMid(coordinates[0][1], coordinates[3][1], coordinates[2][1], coordinates[1][1], midYPercent);
+
+    calcMapCoordinates();
+    stroke(strokeColor);
+    for ( int i = 0; i < 4; i++) {
+      line(coordinates[i][0], coordinates[i][1], mapCoordinates[i][0], mapCoordinates[i][1]);
+    }
+
+    drawSides();
+  }
+  private void drawSides() {
+
+    if (side1) {
+      noStroke();
+      fill(cSide1);
+      beginShape();
+      vertex(coordinates[0][0], coordinates[0][1]);
+      vertex(coordinates[1][0], coordinates[1][1]);
+      vertex(mapCoordinates[1][0], mapCoordinates[1][1]);
+      vertex(mapCoordinates[0][0], mapCoordinates[0][1]);
+      endShape(CLOSE);
+    }
+    if (side2) {
+      noStroke();
+      fill(cSide2);
+      beginShape();
+      vertex(coordinates[1][0], coordinates[1][1]);
+      vertex(coordinates[2][0], coordinates[2][1]);
+      vertex(mapCoordinates[2][0], mapCoordinates[2][1]);
+      vertex(mapCoordinates[1][0], mapCoordinates[1][1]);
+      endShape(CLOSE);
+    }
+    if (side3) {
+      noStroke();
+      fill(cSide3);
+      beginShape();
+      vertex(coordinates[2][0], coordinates[2][1]);
+      vertex(coordinates[3][0], coordinates[3][1]);
+      vertex(mapCoordinates[3][0], mapCoordinates[3][1]);
+      vertex(mapCoordinates[2][0], mapCoordinates[2][1]);
+      endShape(CLOSE);
+    }
+    if (side4) {
+      noStroke();
+      fill(cSide4);
+      beginShape();
+      vertex(coordinates[3][0], coordinates[3][1]);
+      vertex(coordinates[0][0], coordinates[0][1]);
+      vertex(mapCoordinates[0][0], mapCoordinates[0][1]);
+      vertex(mapCoordinates[3][0], mapCoordinates[3][1]);
+      endShape(CLOSE);
+    }
+    if (side5) {
+      noStroke();
+      fill(cSide5);
+      beginShape();
+      vertex(mapCoordinates[0][0], mapCoordinates[0][1]);
+      vertex(mapCoordinates[1][0], mapCoordinates[1][1]);
+      vertex(mapCoordinates[2][0], mapCoordinates[2][1]);
+      vertex(mapCoordinates[3][0], mapCoordinates[3][1]);
+      endShape(CLOSE);
+    }
+  }
+
+  private float calcMid(float c1, float c2, float c3, float c4, float p) {
+
+    float m1 = (( (c2-c1)/2)+c1);
+    float m2 = ( ( (c4-c3)/2)+c3) ;
+
+    return (m2-m1)/(100/p)+ m1;
+  }
+
+  private void calcMapCoordinates() {
+    for ( int i = 0; i < 4; i++) {
+      mapCoordinates[i][0] = lerp(coordinates[i][0], midX, mapPercent*0.01);
+      mapCoordinates[i][1] = lerp(coordinates[i][1], midY, mapPercent*0.01);
+    }
+  }
+  /////////////////////MAPPING END ///////////////////
 
   /////////////////////USER GETTER/ SETTER ///////////////////
 
@@ -440,4 +554,81 @@ class Cube {
   }
 
   /////////////////////STOKE ANIMATION END ///////////////////
+
+
+  /////////////////////MAPPING ///////////////////
+
+  protected void setMapping(boolean s) {
+    if (s) {
+      mapping = true;
+
+      side1 = true; 
+      side2 = true;  
+      side3 = true;  
+      side4 = true;  
+      side5 = true;
+    } else {
+      mapping = false;
+
+      side1 = false; 
+      side2 = false;  
+      side3 = false;  
+      side4 = false;  
+      side5 = false;
+    }
+  }
+
+  protected void setMappingSide(int s, boolean a) {
+    if (  (s >= 0 ) && (s <= 3) ) {
+      switch(s) {
+      case 0:
+        side1 = a;
+        break;
+      case 1:
+        side2 = a;
+        break;
+      case 2:
+        side3 = a;
+        break;
+      case 3: 
+        side4 = a;
+        break;
+      case 4:
+        side5 = a;
+        break;
+      }
+    }
+  }
+
+  protected void setMappingSideColor(int s, color c) {
+    if (  (s >= 0 ) && (s <= 3) ) {
+      switch(s) {
+      case 0:
+        cSide1 = c;
+        break;
+      case 1:
+        cSide2 = c;
+        break;
+      case 2:
+        cSide3 = c;
+        break;
+      case 3: 
+        cSide4 = c;
+        break;
+      case 4:
+        cSide5 = c;
+      }
+    }
+  }
+  protected  void setMidXPercent(float p) {
+    this.midXPercent = p;
+  }
+  protected void setMidYPercent(float p) {
+    this.midYPercent = p;
+  }
+  protected void setMappingPercent(float p) {
+    this.mapPercent = p;
+  }
+
+  /////////////////////MAPPING END ///////////////////
 }
