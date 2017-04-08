@@ -18,10 +18,10 @@ class Installation {
 
   private Side sides [];
 
-  private ArrayList<Character> keyList;
   private int totalColumns;
   private int colCount;
   protected int cubeCount;
+  protected float cPercentBuffer []; 
 
   protected Installation( int sideCount, float sidesPos[][], int colCount, int cubeCount) {
     sides = new Side[sideCount];
@@ -31,8 +31,10 @@ class Installation {
         sides[i] = new Side(colCount, cubeCount, sidesPos[i][0], sidesPos[i][1]);
       }
     }
+    
+     cPercentBuffer = new float[sideCount * colCount];
 
-    keyList = new ArrayList<Character>();
+
 
     this.colCount = colCount;
     this.cubeCount = cubeCount;
@@ -78,6 +80,7 @@ class Installation {
         //println(int(id.substring(1)));
         setTotalColumnPerc(int(id.substring(1)), float(tmp));
         controlView.setCurrent(int(id.substring(1)), float(tmp));
+        cPercentBuffer[int(id.substring(1))] = float(tmp);
       }
     }
   }
@@ -158,11 +161,21 @@ class Installation {
   protected int getColumns() {
     return getSideCount()*getColumnsPerSideCount();
   }
+  
+  protected float getColumnPercent(int c) {
+    return cPercentBuffer[c];
+  }
 
 
 
   protected void setTarget(int c, float p ) {
     client.publish("a"+ c + "/target", str(p));
+    controlView.setTarget(c, p);
+  }
+  
+  protected void setTarget(int c, float p, float s ) {
+    client.publish("a"+ c + "/target", str(p));
+    client.publish("a"+ c + "/speed", str(s));
     controlView.setTarget(c, p);
   }
 

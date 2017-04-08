@@ -1,4 +1,5 @@
-class ML_Sinus extends MLayer {
+
+//class ML_Sinus extends MLayer {
 
   /*
  magnetic and coders - engine
@@ -9,7 +10,7 @@ class ML_Sinus extends MLayer {
    
    based on "Sine Wave" example by Daniel Shiffman 
    */
-
+/*
 
   int from, to;
   float speed, amp;
@@ -31,17 +32,17 @@ class ML_Sinus extends MLayer {
 
 
   protected ML_Sinus(int[] usedColumns, int duration, float speed, float amp) {
-        super(usedColumns);
-    
+    super(usedColumns);
+
     this.from = usedColumns[0];
     int to = 0;
-    if(usedColumns.length > 0) {
+    if (usedColumns.length > 0) {
       to = usedColumns[usedColumns.length-1];
     }
     this.to = to;
     this.speed = speed;
     this.amp = amp;
-    
+
     this.duration = duration;
 
     this.dx = (TWO_PI / period) * xspacing;
@@ -64,19 +65,25 @@ class ML_Sinus extends MLayer {
 
 
 
+
     if ( response) {
       println("killed");
       super.selfdestuction();
     }
     return response;
   }
-  
-  private void sendTargets() {
-   
-    for( int i = this.from; i < this.to+1;i++) {
-      installation.setTarget(i,map(constrain(yvalues[i],-amp,amp),-amp,amp,0,100));
-    }
 
+  private void sendTarget(int p) {
+    if (   (abs(yvalues[p] - amp) < 10)  ||  (abs(yvalues[p] - -amp) < 10 ) ) {
+      installation.setTarget(p, map(constrain(yvalues[p], -amp, amp), -amp, amp, 0, 100));
+    }
+  }
+
+  private void sendTargets() {
+
+    for ( int i = this.from; i < this.to+1; i++) {
+      installation.setTarget(i, map(constrain(yvalues[i], -amp, amp), -amp, amp, 0, 100));
+    }
   }
 
 
@@ -90,3 +97,4 @@ class ML_Sinus extends MLayer {
     }
   }
 }
+*/

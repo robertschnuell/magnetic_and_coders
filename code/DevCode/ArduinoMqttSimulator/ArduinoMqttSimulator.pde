@@ -15,7 +15,7 @@ void setup() {
   arduinos = new ArrayList<ColumnArduino>();
 
   for ( int i = 0; i < 8; i++) {
-    ColumnArduino tmp = new ColumnArduino("a"+ i, 100, 1000, 3);
+    ColumnArduino tmp = new ColumnArduino("a"+ i, 100, 1000, 1);
 
     arduinos.add(tmp);
   }
@@ -36,10 +36,17 @@ void messageReceived(String topic, byte[] payload) {
 
   String tmp = new String(payload);
 
+
   for ( int i = 0; i< arduinos.size(); i++) {
 
     if (topic.substring(0, topic.indexOf("/")).equals( arduinos.get(i).getName())) {
-      arduinos.get(i).goTo(float(tmp));
+
+      if (topic.substring(topic.indexOf("/")+1).equals("target") ) {
+
+        arduinos.get(i).goTo(float(tmp));
+      } else if (topic.substring(topic.indexOf("/")+1).equals("speed") ) {
+        arduinos.get(i).setSpeed(float(tmp));
+      }
     }
   }
 }

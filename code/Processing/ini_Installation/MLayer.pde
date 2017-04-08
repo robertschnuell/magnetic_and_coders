@@ -9,39 +9,79 @@ class MLayer {
    @author Robert Schnüll <@robertschnuell>
    */
 
-  private int[] usedColumns;
-  private boolean active;
 
-  protected MLayer(int[] usedColumns) {
+  private float currentSpeed;
+  private float maxSpeed;
+  private String id;
+  protected ArrayList<Integer> usedColumns;
+
+  protected MLayer(ArrayList usedColumns) {
     this.usedColumns = usedColumns;
-    this.active = true;
+
+    this.id = UUID.randomUUID().toString();
+  }
+
+  protected MLayer(ArrayList usedColumns, float speed) {
+    this.usedColumns = usedColumns;
+    this.currentSpeed = speed;
+
+    this.id = UUID.randomUUID().toString();
   }
 
 
   protected boolean update() {
-    if (!active) {
+    if (usedColumns.size() == 0) {
       return true;
     } else {
       return false;
     }
+  }
+  protected boolean update(ArrayList tmp) {
+
+    this.usedColumns = tmp;
+
+printStatus();
+   // if (usedColumns.size() == 0) {
+
+   //   return true;
+  //  } else {
+      return false;
+ //   }
   }
 
   protected void selfdestuction() {
     set.mLayers.remove(this);
   }
 
-  protected int[] getUsedColumns() {
+  protected String getId() {
+    return this.id;
+  }
+
+  /*
+  protected void setActive(int c, boolean a) {
+   for (int i = 0; i < usedColumns.length; i++) {
+   if (usedColumns[i] == c) {
+   this.active[i] = a;
+   }
+   }
+   }
+   */
+
+  protected ArrayList getUsedColumns() {
     return this.usedColumns;
   }
 
-  protected Integer getUsedColumnId(int p) {
-    if ( p < usedColumns.length ) {
-      return usedColumns[p];
-    } else {
-      return null;
-    }
-  }
+
   protected int getUsedColumnsCount() {
-    return usedColumns.length;
+    return usedColumns.size();
   }
+  
+  private void  printStatus() {
+    for( int i = 0; i< usedColumns.size();i++) {
+      print(i+ ": " +usedColumns.get(i) + "\t");
+    }
+    println();
+  }
+  
+  
 }

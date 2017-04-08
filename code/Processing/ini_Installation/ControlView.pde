@@ -44,6 +44,7 @@ class ControlView {
 
     stroke(255, 0, 0);
     line(x, y_, x+size*2, y_);
+    line(x, y_+y_-y, x+size*2, y_+y_-y);
     int c = 0;
     for ( int i = 0; i< installation.getSideCount(); i++) {
       for ( int j = 0; j < installation.getColumnsPerSideCount(); j++) {
@@ -83,5 +84,8 @@ class ControlView {
   }
   protected void setCurrent(int c, float p) {
     this.currents[c] = p;
+  }
+  protected float getCurrent(int c) {
+    return currents[c];
   }
 }

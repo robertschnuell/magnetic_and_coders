@@ -1,6 +1,8 @@
 import themidibus.*; 
 import mqtt.*;
 
+import java.util.UUID;
+
 /*
  magnetic and coders - engine
  by 
@@ -31,7 +33,9 @@ void setup() {
   println(width);
   println(height);
 
-  testMidi = new MidiBus(this, "LPD8", -1); 
+  //testMidi = new MidiBus(this, "LPD8", -1); 
+  testMidi = new MidiBus(this, "Port A", -1); 
+
 
   //MQTT 
   client = new MQTTClient(this);
@@ -127,13 +131,13 @@ public void keyPressed()
   }
 
   if (key == 'e') {
-    set.addMLayer("SINUS", 1, 4);
+   // set.addMLayer("SINUS", 1, 4);
   }
   if (key == 'r') {
-    set.addMLayer("SINUS", 4, 8);
+   // set.addMLayer("SINUS", 4, 8);
   }
   if (key == 'h') {
-    set.addMLayer("HOME");
+  //  set.addMLayer("HOME");
   }
 
 
@@ -152,49 +156,65 @@ void mousePressed() {
 
 void controllerChange(int channel, int number, int value) {
   float tmpPerc = map(value, 0, 127, 0.1, 100);
-
+  
+  
   switch(number) {
-  case 1:
-    installation.setColumnPerc(0, 0, tmpPerc);
+    case 28:
+    set.addMLayerData("POSITION",0,int(random(0,8)),random(0,100));
     break;
-  case 2: 
-    installation.setColumnPerc(0, 1, tmpPerc);
-    break;
-  case 3:
-    installation.setColumnPerc(0, 2, tmpPerc);
-    break;
-  case 4: 
-    installation.setColumnPerc(0, 3, tmpPerc);
-    break;
-  case 5:
-    installation.setColumnPerc(1, 0, tmpPerc);
-    break;
-  case 6:
-    installation.setColumnPerc(1, 1, tmpPerc);
-    break;
-  case 7: 
-    installation.setColumnPerc(1, 2, tmpPerc);
-    break;
-  case 8:
-    installation.setColumnPerc(1, 3, tmpPerc);
-    break;
-  default:
+    default:
+    
   }
+
+  /*
+  switch(number) {
+   case 1:
+   installation.setColumnPerc(0, 0, tmpPerc);
+   break;
+   case 2: 
+   installation.setColumnPerc(0, 1, tmpPerc);
+   break;
+   case 3:
+   installation.setColumnPerc(0, 2, tmpPerc);
+   break;
+   case 4: 
+   installation.setColumnPerc(0, 3, tmpPerc);
+   break;
+   case 5:
+   installation.setColumnPerc(1, 0, tmpPerc);
+   break;
+   case 6:
+   installation.setColumnPerc(1, 1, tmpPerc);
+   break;
+   case 7: 
+   installation.setColumnPerc(1, 2, tmpPerc);
+   break;
+   case 8:
+   installation.setColumnPerc(1, 3, tmpPerc);
+   break;
+   default:
+   }
+   
+   */
+   
+   
 }
 
 void noteOff(int channel, int pitch, int velocity) {
-<<<<<<< Updated upstream
-  println(pitch);
+
+
   if (pitch == 41) {
     set.addLayer("FILL_CUBE_RIGHT");
-  } else if (pitch == 42) {
-    set.addLayer("SINUS");
-=======
+  } 
+  if (pitch == 41) {
+   // set.addMLayer("SINUS", 0, 8);
+  }  
+
   if (pitch == 40) {
     set.addLayer("FILL_CUBE_RIGHT_LEFT");
     println("FILL_CUBE_RIGHT_LEFT");
   }
-  if (pitch == 41) {
+  if (pitch == 20) {
     set.addLayer("FILL_CUBE_TOP_DOWN");
     println("FILL_CUBE_TOP_DOWN");
   }
@@ -221,7 +241,6 @@ void noteOff(int channel, int pitch, int velocity) {
   if (pitch == 39) {
     set.addLayer("OUTLINE_CUBE_DOWN_TOP ");
     println("OUTLINE_CUBE_DOWN_TOP");
->>>>>>> Stashed changes
   }
 }
 

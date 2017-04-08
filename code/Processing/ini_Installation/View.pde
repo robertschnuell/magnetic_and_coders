@@ -28,6 +28,4 @@ class View {
   protected int getCubeCount() {
     return cubes.size();
   }
-
-  
 }
