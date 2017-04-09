@@ -131,13 +131,13 @@ public void keyPressed()
   }
 
   if (key == 'e') {
-   // set.addMLayer("SINUS", 1, 4);
+    // set.addMLayer("SINUS", 1, 4);
   }
   if (key == 'r') {
-   // set.addMLayer("SINUS", 4, 8);
+    // set.addMLayer("SINUS", 4, 8);
   }
   if (key == 'h') {
-  //  set.addMLayer("HOME");
+    //  set.addMLayer("HOME");
   }
 
 
@@ -156,14 +156,25 @@ void mousePressed() {
 
 void controllerChange(int channel, int number, int value) {
   float tmpPerc = map(value, 0, 127, 0.1, 100);
-  
-  
+
+  println(number);
   switch(number) {
-    case 28:
-    set.addMLayerData("POSITION",0,int(random(0,8)),random(0,100));
+  case 28:
+    set.addMLayerData("POSITION", 0, int(random(0, 8)), random(0, 100));
     break;
-    default:
-    
+  case 21:
+    set.setColumnMappingXPercent(0, map(value, 0, 127, 0, 100));
+    break;
+  case 22:
+    set.setColumnMappingYPercent(0, map(value, 0, 127, 0, 100));
+    break;
+  case 23:
+    set.setColumnMappingSize(0, map(value, 0, 127, 0, 100));
+    break;
+  case 24:
+    break;
+
+  default:
   }
 
   /*
@@ -196,8 +207,6 @@ void controllerChange(int channel, int number, int value) {
    }
    
    */
-   
-   
 }
 
 void noteOff(int channel, int pitch, int velocity) {
@@ -207,7 +216,7 @@ void noteOff(int channel, int pitch, int velocity) {
     set.addLayer("FILL_CUBE_RIGHT");
   } 
   if (pitch == 41) {
-   // set.addMLayer("SINUS", 0, 8);
+    // set.addMLayer("SINUS", 0, 8);
   }  
 
   if (pitch == 40) {

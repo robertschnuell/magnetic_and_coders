@@ -76,9 +76,6 @@ class Cube {
 
     if (mapping) {
       mapping();
-      midXPercent = 50;
-      midYPercent = 50;
-      mapPercent = 50;
     }
 
 
@@ -118,7 +115,7 @@ class Cube {
 
   /////////////////////MAPPING ///////////////////
   private void iniMapping() {
-    setMapping(true);
+    setMapping(false);
 
     setMappingSideColor(0, 255);
     setMappingSideColor(1, 125);
