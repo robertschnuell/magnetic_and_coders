@@ -58,7 +58,7 @@ void setup() {
 
   controlView = new ControlView(100, 700, 300);
 
-  //staticDev();
+  staticDev();
 }
 
 
@@ -172,6 +172,21 @@ void controllerChange(int channel, int number, int value) {
     set.setColumnMappingSize(0, map(value, 0, 127, 0, 100));
     break;
   case 24:
+    set.setMappingToMid(true, true, map(value, 0, 127, 0, 100));
+    break;
+    case 25:
+    set.setAllMappingSize(map(value, 0, 127, 0, 100));
+    if(value == 0) {
+    set.setAllMapping(false);
+    } else {
+      set.setAllMapping(true);
+    }
+    break;
+    case 26:
+    set.setAllMappingMidX(map(value, 0, 127, 0, 100));
+    break;
+    case 27:
+    set.setAllMappingMidY(map(value, 0, 127, 0, 100));
     break;
 
   default:
@@ -209,47 +224,53 @@ void controllerChange(int channel, int number, int value) {
    */
 }
 
-void noteOff(int channel, int pitch, int velocity) {
+void noteOn(int channel, int pitch, int velocity) {
 
+  println(pitch);
 
   if (pitch == 41) {
-    set.addLayer("FILL_CUBE_RIGHT");
+    set.addLayer("FILL_CUBE_RIGHT",velocity);
   } 
   if (pitch == 41) {
     // set.addMLayer("SINUS", 0, 8);
   }  
 
   if (pitch == 40) {
-    set.addLayer("FILL_CUBE_RIGHT_LEFT");
+    set.addLayer("FILL_CUBE_RIGHT_LEFT",velocity);
     println("FILL_CUBE_RIGHT_LEFT");
   }
   if (pitch == 20) {
-    set.addLayer("FILL_CUBE_TOP_DOWN");
+    set.addLayer("FILL_CUBE_TOP_DOWN",velocity);
     println("FILL_CUBE_TOP_DOWN");
   }
   if (pitch == 42) {
-    set.addLayer("FILL_CUBE_LEFT_RIGHT");
+    set.addLayer("FILL_CUBE_LEFT_RIGHT",velocity);
     println("FILL_CUBE_LEFT_RIGHT");
   } 
   if (pitch == 43) {
-    set.addLayer("FILL_CUBE_DOWN_TOP");
+    set.addLayer("FILL_CUBE_DOWN_TOP",velocity);
     println("FILL_CUBE_DOWN_TOP");
   } 
   if (pitch == 36) {
-    set.addLayer("OUTLINE_CUBE_LEFT_RIGHT ");
+    set.addLayer("OUTLINE_CUBE_LEFT_RIGHT ",velocity);
     println("OUTLINE_CUBE_LEFT_RIGHT ");
   }
   if (pitch == 37) {
-    set.addLayer("OUTLINE_CUBE_RIGHT_LEFT");
+    set.addLayer("OUTLINE_CUBE_RIGHT_LEFT",velocity);
     println("OUTLINE_CUBE_RIGHT_LEFT ");
   }
   if (pitch == 38) {
-    set.addLayer("OUTLINE_CUBE_TOP_DOWN");
+    set.addLayer("OUTLINE_CUBE_TOP_DOWN",velocity);
     println("OUTLINE_CUBE_TOP_DOWN");
   }
   if (pitch == 39) {
-    set.addLayer("OUTLINE_CUBE_DOWN_TOP ");
+    set.addLayer("OUTLINE_CUBE_DOWN_TOP ",velocity);
     println("OUTLINE_CUBE_DOWN_TOP");
+  }
+  if (pitch == 48) {
+    set.addLayer("FILL_TO_MID",velocity);
+    println("v" + velocity);
+
   }
 }
 
