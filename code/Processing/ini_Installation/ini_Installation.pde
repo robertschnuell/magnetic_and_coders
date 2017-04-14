@@ -59,6 +59,8 @@ void setup() {
   controlView = new ControlView(100, 700, 300);
 
   staticDev();
+
+  // exportDataToJson();
 }
 
 
@@ -174,18 +176,18 @@ void controllerChange(int channel, int number, int value) {
   case 24:
     set.setMappingToMid(true, true, map(value, 0, 127, 0, 100));
     break;
-    case 25:
+  case 25:
     set.setAllMappingSize(map(value, 0, 127, 0, 100));
-    if(value == 0) {
-    set.setAllMapping(false);
+    if (value == 0) {
+      set.setAllMapping(false);
     } else {
       set.setAllMapping(true);
     }
     break;
-    case 26:
+  case 26:
     set.setAllMappingMidX(map(value, 0, 127, 0, 100));
     break;
-    case 27:
+  case 27:
     set.setAllMappingMidY(map(value, 0, 127, 0, 100));
     break;
 
@@ -228,51 +230,161 @@ void noteOn(int channel, int pitch, int velocity) {
 
   println(pitch);
 
+  /*
   if (pitch == 41) {
-    set.addLayer("FILL_CUBE_RIGHT",velocity);
-  } 
-  if (pitch == 41) {
-    // set.addMLayer("SINUS", 0, 8);
-  }  
+   set.addLayer("FILL_CUBE_RIGHT", velocity);
+   } 
+   if (pitch == 41) {
+   // set.addMLayer("SINUS", 0, 8);
+   }  
+   
+   if (pitch == 40) {
+   set.addLayer("FILL_CUBE_RIGHT_LEFT", velocity);
+   println("FILL_CUBE_RIGHT_LEFT");
+   }
+   if (pitch == 20) {
+   set.addLayer("FILL_CUBE_TOP_DOWN", velocity);
+   println("FILL_CUBE_TOP_DOWN");
+   }
+   if (pitch == 42) {
+   set.addLayer("FILL_CUBE_LEFT_RIGHT", velocity);
+   println("FILL_CUBE_LEFT_RIGHT");
+   } 
+   if (pitch == 43) {
+   set.addLayer("FILL_CUBE_DOWN_TOP", velocity);
+   println("FILL_CUBE_DOWN_TOP");
+   } 
+   if (pitch == 36) {
+   set.addLayer("OUTLINE_CUBE_LEFT_RIGHT ", velocity);
+   println("OUTLINE_CUBE_LEFT_RIGHT ");
+   }
+   if (pitch == 37) {
+   set.addLayer("OUTLINE_CUBE_RIGHT_LEFT", velocity);
+   println("OUTLINE_CUBE_RIGHT_LEFT ");
+   }
+   if (pitch == 38) {
+   set.addLayer("OUTLINE_CUBE_TOP_DOWN", velocity);
+   println("OUTLINE_CUBE_TOP_DOWN");
+   }
+   if (pitch == 39) {
+   set.addLayer("OUTLINE_CUBE_DOWN_TOP ", velocity);
+   println("OUTLINE_CUBE_DOWN_TOP");
+   }
+   if (pitch == 48) {
+   set.addLayer("FILL_TO_MID", velocity);
+   println("v" + velocity);
+   }
+   if (pitch == 49) {
+   set.addLayer("FILL_TO_MID_RIGHT", velocity);
+   println("v" + velocity);
+   }
+   if (pitch == 50) {
+   set.addLayer("FILL_TO_MID_SIDES", velocity);
+   println("v" + velocity);
+   }
+   if (pitch == 51) {
+   set.addLayer("FILL_TO_MID_SIDES_RIGHT", velocity);
+   println("v" + velocity);
+   }
+   */
 
-  if (pitch == 40) {
-    set.addLayer("FILL_CUBE_RIGHT_LEFT",velocity);
-    println("FILL_CUBE_RIGHT_LEFT");
+  //  CHANNEL A 51-39      //
+  if (pitch == 51) {
+    set.addLayer("FILL_TO_MID", velocity);
   }
-  if (pitch == 20) {
-    set.addLayer("FILL_CUBE_TOP_DOWN",velocity);
-    println("FILL_CUBE_TOP_DOWN");
+  if (pitch == 50) {
+    set.addLayer("FILL_TO_MID_SIDES_RIGHT", velocity);
   }
-  if (pitch == 42) {
-    set.addLayer("FILL_CUBE_LEFT_RIGHT",velocity);
-    println("FILL_CUBE_LEFT_RIGHT");
-  } 
-  if (pitch == 43) {
-    set.addLayer("FILL_CUBE_DOWN_TOP",velocity);
-    println("FILL_CUBE_DOWN_TOP");
-  } 
-  if (pitch == 36) {
-    set.addLayer("OUTLINE_CUBE_LEFT_RIGHT ",velocity);
-    println("OUTLINE_CUBE_LEFT_RIGHT ");
-  }
-  if (pitch == 37) {
-    set.addLayer("OUTLINE_CUBE_RIGHT_LEFT",velocity);
-    println("OUTLINE_CUBE_RIGHT_LEFT ");
-  }
-  if (pitch == 38) {
-    set.addLayer("OUTLINE_CUBE_TOP_DOWN",velocity);
-    println("OUTLINE_CUBE_TOP_DOWN");
-  }
-  if (pitch == 39) {
-    set.addLayer("OUTLINE_CUBE_DOWN_TOP ",velocity);
-    println("OUTLINE_CUBE_DOWN_TOP");
+  if (pitch == 49) {
+    set.addLayer("FILL_TO_MID_RIGHT", velocity);
   }
   if (pitch == 48) {
-    set.addLayer("FILL_TO_MID",velocity);
-    println("v" + velocity);
-
+    set.addLayer("FILL_TO_MID_SIDES", velocity);
   }
+  
+  if (pitch == 47) {
+    set.addLayer("FILL_CUBE_TOP_DOWN", velocity);
+  }
+  if (pitch == 46) {
+    set.addLayer("FILL_CUBE_TOP_DOWN_R", velocity);
+  }
+  if (pitch == 45) {
+    set.addLayer("FILL_CUBE_DOWN_TOP_R", velocity);
+  }
+  if (pitch == 44) {
+    set.addLayer("FILL_CUBE_DOWN_TOP", velocity);
+  }
+  
+  if (pitch == 43) {
+  }
+  if (pitch == 42) {
+  }
+  if (pitch == 41) {
+  }
+  if (pitch == 40) {
+    
+  }
+  
+  if (pitch == 39) {
+  }
+  if (pitch == 38) {
+  }
+  if (pitch == 37) {
+  }
+  if (pitch == 36) {
+  }
+
+  //  CHANNEL A END        //
+
+  //  CHANNEL B 64-55      //
+
+  //  CHANNEL B END        //
+
+  //  CHANNEL C 80-71      //
+
+  //  CHANNEL C END        //
+
+  //  CHANNEL D 96-87      //
+
+  //  CHANNEL D END        //
 }
 
 
 /////////////////////INPUT LISTENER END ///////////////////
+
+/////////////////////SETTINGS IMPORT / EXPORT VIA JSON ///////////////////
+
+
+void exportDataToJson() {
+  JSONArray jsonExport = new JSONArray();
+
+
+  for ( int k = 0; k < 10; k++) {
+    JSONArray cube = new JSONArray();
+
+
+    for ( int i = 0; i < 2; i++) {
+      JSONArray squareStates = new JSONArray();
+
+
+
+      for ( int j = 0; j < 4; j++) {
+        JSONObject squareState = new JSONObject();
+
+        squareState.setFloat("x"+int(j+1), 10);
+        squareState.setFloat("y"+int(j+1), 11);
+
+        squareStates.setJSONObject(j, squareState);
+      }
+
+
+      cube.setJSONArray(i, squareStates);
+    }
+    jsonExport.setJSONArray(k, cube);
+  }
+
+  println(jsonExport);
+  //saveJSONArray(jsonExport, "data/settings.json");
+}
+
+/////////////////////END SETTINGS IMPORT / EXPORT VIA JSON ///////////////////

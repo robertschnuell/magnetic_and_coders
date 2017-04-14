@@ -201,6 +201,23 @@ class Square {
     }
     return cords;
   }
+  
+  protected float[][] getStatesCoords() {
+    float [][] result;
+    result = new float[states.size()][8];
+    
+    for ( int i = 0; i < states.size();i++) {
+      
+      for( int j = 0; j < 4; j++) {
+        result[i][j] = states.get(i).getX(j);
+        result[i][j+1] = states.get(i).getY(j);
+      }
+    }
+    
+    
+    return result;
+    
+  }
 
 
 

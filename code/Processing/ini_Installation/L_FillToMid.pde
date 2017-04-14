@@ -42,7 +42,11 @@ class L_FillToMid extends Layer {
     int startCube = (colPointer-1)*installation.getCubeCount(); 
     int endCube = startCube + installation.getCubeCount();
     for ( int i = startCube; i < endCube; i++) {
-      view.cubes.get(constrain(i, 0, view.cubes.size())).setDrawFill(true, map(fill, 0, timeEachCol, 0, 99.9), type, color(255, 0, 0));
+      if (sides) {
+        view.cubes.get(constrain(i, 0, view.cubes.size())).setDrawFill(true, map(fill, 0, timeEachCol, 0, 99.9), type, color(255, 0, 0));
+      } else {
+        view.cubes.get(constrain(i, 0, view.cubes.size())).setDrawFill(true, 100-map(fill, 0, timeEachCol, 0, 99.9), type, color(255, 0, 0));
+      }
     }
 
 
@@ -54,7 +58,11 @@ class L_FillToMid extends Layer {
 
 
     for ( int i = endCube; i < startCube; i++) {
-      view.cubes.get(constrain(i, 0, view.cubes.size()-1)).setDrawFill(true, map(fill, 0, timeEachCol, 0, 99.9), tmpType, color(255, 0, 0));
+      if (sides) {
+        view.cubes.get(constrain(i, 0, view.cubes.size()-1)).setDrawFill(true, map(fill, 0, timeEachCol, 0, 99.9), tmpType, color(255, 0, 0));
+      } else {
+        view.cubes.get(constrain(i, 0, view.cubes.size()-1)).setDrawFill(true,100- map(fill, 0, timeEachCol, 0, 99.9), tmpType, color(255, 0, 0));
+      }
     }
 
 

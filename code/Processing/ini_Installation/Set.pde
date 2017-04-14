@@ -17,6 +17,8 @@ class Set {
 
 
   public String mColumnUse[];
+  
+  private int[][] rowPointer; 
 
   protected Set() {
     layers = new ArrayList<Layer>();
@@ -125,13 +127,13 @@ class Set {
 
   protected void addLayer(String type) {
     if (type.equals("FILL_CUBE_RIGHT_LEFT")) {
-      layers.add(new L_Fill(int(random(0, view.getCubeCount())), 1000, "TOP"));
+      layers.add(new L_Fill(int(random(0, view.getCubeCount())), 1000, "TOP",false));
     } else if (type.equals("FILL_CUBE_TOP_DOWN")) {
-      layers.add(new L_Fill(int(random(0, view.getCubeCount())), 1000, "RIGHT"));
+      layers.add(new L_Fill(int(random(0, view.getCubeCount())), 1000, "RIGHT",false));
     } else if (type.equals("FILL_CUBE_LEFT_RIGHT")) {
-      layers.add(new L_Fill(int(random(0, view.getCubeCount())), 1000, "BOTTOM"));
+      layers.add(new L_Fill(int(random(0, view.getCubeCount())), 1000, "BOTTOM",false));
     } else if (type.equals("FILL_CUBE_DOWN_TOP")) {
-      layers.add(new L_Fill(int(random(0, view.getCubeCount())), 1000, "LEFT"));
+      layers.add(new L_Fill(int(random(0, view.getCubeCount())), 1000, "LEFT",false));
     } else if (type.equals("OUTLINE_CUBE_LEFT_RIGHT")) {
       layers.add(new L_Outline(int(random(0, view.getCubeCount())), 1000, 7));
     } else if (type.equals("OUTLINE_CUBE_RIGHT_LEFT")) {
@@ -146,14 +148,38 @@ class Set {
   }
   protected void addLayer(String type, int val) {
     if (type.equals("FILL_CUBE_RIGHT_LEFT")) {
-      layers.add(new L_Fill(int(random(0, view.getCubeCount())), int(map(val,0,127,2000,100)), "TOP"));
-    } else if (type.equals("FILL_CUBE_TOP_DOWN")) {
-      layers.add(new L_Fill(int(random(0, view.getCubeCount())), int(map(val,0,127,2000,100)), "RIGHT"));
+      layers.add(new L_Fill(int(random(0, view.getCubeCount())), int(map(val,0,127,2000,100)), "TOP",false));
     } else if (type.equals("FILL_CUBE_LEFT_RIGHT")) {
-      layers.add(new L_Fill(int(random(0, view.getCubeCount())), int(map(val,0,127,2000,100)), "BOTTOM"));
+      layers.add(new L_Fill(int(random(0, view.getCubeCount())), int(map(val,0,127,2000,100)), "BOTTOM",false));
+    } else if (type.equals("FILL_CUBE_TOP_DOWN")) {
+      layers.add(new L_Fill(int(random(0, view.getCubeCount())), int(map(val,0,127,2000,100)), "RIGHT",false));
     } else if (type.equals("FILL_CUBE_DOWN_TOP")) {
-      layers.add(new L_Fill(int(random(0, view.getCubeCount())), int(map(val,0,127,2000,100)), "LEFT"));
-    } else if (type.equals("OUTLINE_CUBE_LEFT_RIGHT")) {
+      layers.add(new L_Fill(int(random(0, view.getCubeCount())), int(map(val,0,127,2000,100)), "LEFT",false));
+    } else if (type.equals("FILL_CUBE_RIGHT_LEFT_R")) {
+      layers.add(new L_Fill(int(random(0, view.getCubeCount())), int(map(val,0,127,2000,100)), "TOP",true));
+    } else if (type.equals("FILL_CUBE_LEFT_RIGHT_R")) {
+      layers.add(new L_Fill(int(random(0, view.getCubeCount())), int(map(val,0,127,2000,100)), "BOTTOM",true));
+    } else if (type.equals("FILL_CUBE_TOP_DOWN_R")) {
+      layers.add(new L_Fill(int(random(0, view.getCubeCount())), int(map(val,0,127,2000,100)), "RIGHT",true));
+    } else if (type.equals("FILL_CUBE_DOWN_TOP_R")) {
+      layers.add(new L_Fill(int(random(0, view.getCubeCount())), int(map(val,0,127,2000,100)), "LEFT",true));
+    } 
+    
+    
+    else if ( type.equals("FILL_TO_MID")) {
+      layers.add(new L_FillToMid(false, int(map(val,0,127,3000,100)),"LEFT"));
+    } else if ( type.equals("FILL_TO_MID_RIGHT")) {
+      layers.add(new L_FillToMid(false, int(map(val,0,127,3000,100)),"RIGHT"));
+    } else if ( type.equals("FILL_TO_MID_SIDES")) {
+      layers.add(new L_FillToMid(true, int(map(val,0,127,3000,100)),"LEFT"));
+    } else if ( type.equals("FILL_TO_MID_SIDES_RIGHT")) {
+      layers.add(new L_FillToMid(true, int(map(val,0,127,3000,100)),"RIGHT"));
+    }
+    
+    
+    
+    
+    else if (type.equals("OUTLINE_CUBE_LEFT_RIGHT")) {
       layers.add(new L_Outline(int(random(0, view.getCubeCount())), int(map(val,0,127,2000,100)), 7));
     } else if (type.equals("OUTLINE_CUBE_RIGHT_LEFT")) {
       layers.add(new L_Outline(int(random(0, view.getCubeCount())), int(map(val,0,127,2000,100)), 1));
@@ -161,9 +187,7 @@ class Set {
       layers.add(new L_Outline(int(random(0, view.getCubeCount())), int(map(val,0,127,2000,100)), 2));
     } else if (type.equals("OUTLINE_CUBE_DOWN_TOP")) {
       layers.add(new L_Outline(int(random(0, view.getCubeCount())), int(map(val,0,127,2000,100)), 3));
-    } else if ( type.equals("FILL_TO_MID")) {
-      layers.add(new L_FillToMid(false, int(map(val,0,127,3000,100)),"LEFT"));
-    }
+    } 
   }
 
 
