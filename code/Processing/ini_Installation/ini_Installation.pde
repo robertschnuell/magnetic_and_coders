@@ -149,6 +149,7 @@ public void keyPressed()
 
 void mousePressed() {
   installation.checkMouse();
+  controlView.checkMouse();
 }
 
 

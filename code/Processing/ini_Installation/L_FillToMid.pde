@@ -1,5 +1,16 @@
 class L_FillToMid extends Layer {
-
+  /*
+ magnetic and coders - engine
+   by 
+   Jannik Bussmann
+   Dirk Erdmann
+   Robert Schnüll
+   
+   @author Robert Schnüll <@robertschnuell>
+   
+   license: This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+   - https://creativecommons.org/licenses/by-nc-sa/4.0/
+   */
 
   private float fill; 
   private String type;
@@ -10,7 +21,7 @@ class L_FillToMid extends Layer {
   private String tmpType;
 
   protected L_FillToMid(String name, boolean sides, long duration, String type) {
-    super(duration,name);
+    super(duration, name);
     this.sides = sides;
     this.fill = 0;
     this.type = type;
@@ -61,7 +72,7 @@ class L_FillToMid extends Layer {
       if (sides) {
         view.cubes.get(constrain(i, 0, view.cubes.size()-1)).setDrawFill(true, map(fill, 0, timeEachCol, 0, 99.9), tmpType, color(255, 0, 0));
       } else {
-        view.cubes.get(constrain(i, 0, view.cubes.size()-1)).setDrawFill(true,100- map(fill, 0, timeEachCol, 0, 99.9), tmpType, color(255, 0, 0));
+        view.cubes.get(constrain(i, 0, view.cubes.size()-1)).setDrawFill(true, 100- map(fill, 0, timeEachCol, 0, 99.9), tmpType, color(255, 0, 0));
       }
     }
 

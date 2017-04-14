@@ -20,6 +20,10 @@ class ControlView {
   float[] targets;
   float[] currents;
 
+  boolean mouseClick;
+
+  boolean [][] selectedRows;
+
   protected ControlView(int x, int y, int s) {
     this.x = x;
     this.y = y;
@@ -27,36 +31,70 @@ class ControlView {
 
     this.targets = new float[installation.getColumnsPerSideCount()*installation.getSideCount()];
     this.currents = new float[installation.getColumnsPerSideCount()*installation.getSideCount()];
-   
+
+    this.selectedRows = new boolean[installation.getCubeCount()][installation.getSideCount()];
   }
 
   protected void update() {
 
-    stroke(255, 0, 0);
+
 
     drawFonts();
-        noFill();
+    RowSelectorInterface(x+size*1.8, y+ 60);
+
+    stroke(255, 0, 0);
+    noFill();
     rect(x, y, size*2, size);
     drawColumns(x+20, y+ size/4);
+
+    mouseClick = false;
   }
-  
-  void drawFonts() {
+
+  private void drawFonts() {
     fill(255);
-     textSize(32);
-    text("magnetic and coders", x+ size/2,y+ 60); 
-    
+    textSize(32);
+    text("magnetic and coders", x+ size/2, y+ 60); 
+
     textSize(16);
-    text("Layers", x+ size*1.2,y+ 85);
-    
+    text("Layers", x+ size*1.2, y+ 85);
+
     textSize(10);
-    for( int i = 0; i < constrain(set.layers.size(),0,10); i++) {
-      text(set.layers.get(i).getName(),x+ size*1.2,y+ 100 + 10*i);
-      
-      text(int(set.layers.get(i).getDuration()),x+ size*1.2+ 140,y+ 100 + 10*i);
+    for ( int i = 0; i < constrain(set.layers.size(), 0, 10); i++) {
+      text(set.layers.get(i).getName(), x+ size*1.2, y+ 100 + 10*i);
+
+      text(int(set.layers.get(i).getDuration()), x+ size*1.2+ 140, y+ 100 + 10*i);
     }
-    
-    
+
+
     noFill();
+  }
+
+  private void RowSelectorInterface(float x_, float y_) {
+    int size = 10;
+    for ( int i = 0; i< installation.getSideCount(); i++) {
+      for ( int j = 0; j < installation.getCubeCount(); j++) {
+        float xPos = x_+ i*20;
+        float yPos = y_ + 20*j;
+
+
+
+        if ( ( mouseX > xPos) && (mouseX < xPos+size)  && (mouseY > yPos) && (mouseY < yPos + size) ) {
+          if (mouseClick) {
+            selectedRows[j][i] = !selectedRows[j][i];
+          }
+          fill(255); 
+          noStroke();
+        } else {
+          if (selectedRows[j][i]) {
+            fill(125);
+          } else {
+            noFill(); 
+            stroke(255);
+          }
+        }
+        rect(xPos, yPos, size, size);
+      }
+    }
   }
 
 
@@ -98,6 +136,10 @@ class ControlView {
       }
       x_ += 300;
     }
+  }
+
+  protected void checkMouse() {
+    this.mouseClick = true;
   }
 
 
