@@ -12,9 +12,11 @@ class Layer {
   protected long start;
   protected long duration;
   protected String type;
-  protected Layer(long duration) {
+  protected String name;
+  protected Layer(long duration,String name) {
     this.start = millis();
     this.duration = duration;
+    this.name = name;
   }
 
   protected boolean update() {
@@ -25,6 +27,13 @@ class Layer {
       //do 
       return false;
     }
+  }
+  
+  protected String getName() {
+    return this.name;
+  }
+  protected long getDuration() {
+    return this.duration;
   }
 
   protected void selfdestuction() {

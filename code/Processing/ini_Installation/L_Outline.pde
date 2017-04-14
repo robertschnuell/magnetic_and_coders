@@ -4,8 +4,8 @@ class L_Outline extends Layer {
   private float fill; 
   private int type;
   
-  protected L_Outline(int cubeId, long duration, int type) {
-    super(duration);
+  protected L_Outline(String name, int cubeId, long duration, int type) {
+    super(duration,name);
     this.id = cubeId;
     this.fill = 0;
     this.type = type;

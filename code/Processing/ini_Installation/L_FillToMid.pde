@@ -9,8 +9,8 @@ class L_FillToMid extends Layer {
   private float timeEachCol;
   private String tmpType;
 
-  protected L_FillToMid(boolean sides, long duration, String type) {
-    super(duration);
+  protected L_FillToMid(String name, boolean sides, long duration, String type) {
+    super(duration,name);
     this.sides = sides;
     this.fill = 0;
     this.type = type;

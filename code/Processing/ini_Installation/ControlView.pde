@@ -27,14 +27,36 @@ class ControlView {
 
     this.targets = new float[installation.getColumnsPerSideCount()*installation.getSideCount()];
     this.currents = new float[installation.getColumnsPerSideCount()*installation.getSideCount()];
+   
   }
 
   protected void update() {
 
     stroke(255, 0, 0);
-    noFill();
+
+    drawFonts();
+        noFill();
     rect(x, y, size*2, size);
     drawColumns(x+20, y+ size/4);
+  }
+  
+  void drawFonts() {
+    fill(255);
+     textSize(32);
+    text("magnetic and coders", x+ size/2,y+ 60); 
+    
+    textSize(16);
+    text("Layers", x+ size*1.2,y+ 85);
+    
+    textSize(10);
+    for( int i = 0; i < constrain(set.layers.size(),0,10); i++) {
+      text(set.layers.get(i).getName(),x+ size*1.2,y+ 100 + 10*i);
+      
+      text(int(set.layers.get(i).getDuration()),x+ size*1.2+ 140,y+ 100 + 10*i);
+    }
+    
+    
+    noFill();
   }
 
 
@@ -43,8 +65,8 @@ class ControlView {
   private void drawColumns(int x_, int y_) {
 
     stroke(255, 0, 0);
-    line(x, y_, x+size*2, y_);
-    line(x, y_+y_-y, x+size*2, y_+y_-y);
+    line(x, y_, x+size*1.1, y_);
+    line(x, y_+y_-y, x+size*1.1, y_+y_-y);
     int c = 0;
     for ( int i = 0; i< installation.getSideCount(); i++) {
       for ( int j = 0; j < installation.getColumnsPerSideCount(); j++) {

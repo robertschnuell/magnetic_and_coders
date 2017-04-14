@@ -56,7 +56,7 @@ void setup() {
   set  = new Set();
 
 
-  controlView = new ControlView(100, 700, 300);
+  controlView = new ControlView(100, 700, 400);
 
   staticDev();
 
@@ -316,10 +316,14 @@ void noteOn(int channel, int pitch, int velocity) {
   }
   
   if (pitch == 43) {
+    set.updateRowPointer(3,"LEFT",velocity,"LEFT");
+    //updateRowPointer(int row, String side, int val, String type)
   }
   if (pitch == 42) {
+     set.updateRowPointer(3,"RIGHT",velocity,"LEFT");
   }
   if (pitch == 41) {
+     set.updateRowPointer(3,"BOTH",velocity,"LEFT");
   }
   if (pitch == 40) {
     

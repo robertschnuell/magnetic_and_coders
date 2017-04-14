@@ -5,8 +5,8 @@ class L_Fill extends Layer {
   private String type;
   private boolean reverse;
 
-  protected L_Fill(int cubeId, long duration, String type, boolean reverse) {
-    super(duration);
+  protected L_Fill(String name, int cubeId, long duration, String type, boolean reverse) {
+    super(duration,name);
     this.id = cubeId;
     this.fill = 0;
     this.type = type;

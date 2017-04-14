@@ -17,7 +17,7 @@ class Set {
 
 
   public String mColumnUse[];
-  
+
   private int[][] rowPointer; 
 
   protected Set() {
@@ -25,6 +25,8 @@ class Set {
     mLayers = new ArrayList<MLayer>();
 
     mColumnUse = new String[installation.getColumns()];
+
+    rowPointer = new int[installation.getCubeCount()][installation.getSideCount()];
   }
 
   protected void update() {
@@ -127,68 +129,62 @@ class Set {
 
   protected void addLayer(String type) {
     if (type.equals("FILL_CUBE_RIGHT_LEFT")) {
-      layers.add(new L_Fill(int(random(0, view.getCubeCount())), 1000, "TOP",false));
+      layers.add(new L_Fill(type, int(random(0, view.getCubeCount())), 1000, "TOP", false));
     } else if (type.equals("FILL_CUBE_TOP_DOWN")) {
-      layers.add(new L_Fill(int(random(0, view.getCubeCount())), 1000, "RIGHT",false));
+      layers.add(new L_Fill(type, int(random(0, view.getCubeCount())), 1000, "RIGHT", false));
     } else if (type.equals("FILL_CUBE_LEFT_RIGHT")) {
-      layers.add(new L_Fill(int(random(0, view.getCubeCount())), 1000, "BOTTOM",false));
+      layers.add(new L_Fill(type, int(random(0, view.getCubeCount())), 1000, "BOTTOM", false));
     } else if (type.equals("FILL_CUBE_DOWN_TOP")) {
-      layers.add(new L_Fill(int(random(0, view.getCubeCount())), 1000, "LEFT",false));
+      layers.add(new L_Fill(type, int(random(0, view.getCubeCount())), 1000, "LEFT", false));
     } else if (type.equals("OUTLINE_CUBE_LEFT_RIGHT")) {
-      layers.add(new L_Outline(int(random(0, view.getCubeCount())), 1000, 7));
+      layers.add(new L_Outline(type, int(random(0, view.getCubeCount())), 1000, 7));
     } else if (type.equals("OUTLINE_CUBE_RIGHT_LEFT")) {
-      layers.add(new L_Outline(int(random(0, view.getCubeCount())), 1000, 1));
+      layers.add(new L_Outline(type, int(random(0, view.getCubeCount())), 1000, 1));
     } else if (type.equals("OUTLINE_CUBE_TOP_DOWN")) {
-      layers.add(new L_Outline(int(random(0, view.getCubeCount())), 1000, 2));
+      layers.add(new L_Outline(type, int(random(0, view.getCubeCount())), 1000, 2));
     } else if (type.equals("OUTLINE_CUBE_DOWN_TOP")) {
-      layers.add(new L_Outline(int(random(0, view.getCubeCount())), 1000, 3));
+      layers.add(new L_Outline(type, int(random(0, view.getCubeCount())), 1000, 3));
     } else if ( type.equals("FILL_TO_MID")) {
-      layers.add(new L_FillToMid(false, 5000,"LEFT"));
+      layers.add(new L_FillToMid(type, false, 5000, "LEFT"));
     }
   }
   protected void addLayer(String type, int val) {
     if (type.equals("FILL_CUBE_RIGHT_LEFT")) {
-      layers.add(new L_Fill(int(random(0, view.getCubeCount())), int(map(val,0,127,2000,100)), "TOP",false));
+      layers.add(new L_Fill(type, int(random(0, view.getCubeCount())), int(map(val, 0, 127, 2000, 100)), "TOP", false));
     } else if (type.equals("FILL_CUBE_LEFT_RIGHT")) {
-      layers.add(new L_Fill(int(random(0, view.getCubeCount())), int(map(val,0,127,2000,100)), "BOTTOM",false));
+      layers.add(new L_Fill(type, int(random(0, view.getCubeCount())), int(map(val, 0, 127, 2000, 100)), "BOTTOM", false));
     } else if (type.equals("FILL_CUBE_TOP_DOWN")) {
-      layers.add(new L_Fill(int(random(0, view.getCubeCount())), int(map(val,0,127,2000,100)), "RIGHT",false));
+      layers.add(new L_Fill(type, int(random(0, view.getCubeCount())), int(map(val, 0, 127, 2000, 100)), "RIGHT", false));
     } else if (type.equals("FILL_CUBE_DOWN_TOP")) {
-      layers.add(new L_Fill(int(random(0, view.getCubeCount())), int(map(val,0,127,2000,100)), "LEFT",false));
+      layers.add(new L_Fill(type, int(random(0, view.getCubeCount())), int(map(val, 0, 127, 2000, 100)), "LEFT", false));
     } else if (type.equals("FILL_CUBE_RIGHT_LEFT_R")) {
-      layers.add(new L_Fill(int(random(0, view.getCubeCount())), int(map(val,0,127,2000,100)), "TOP",true));
+      layers.add(new L_Fill(type, int(random(0, view.getCubeCount())), int(map(val, 0, 127, 2000, 100)), "TOP", true));
     } else if (type.equals("FILL_CUBE_LEFT_RIGHT_R")) {
-      layers.add(new L_Fill(int(random(0, view.getCubeCount())), int(map(val,0,127,2000,100)), "BOTTOM",true));
+      layers.add(new L_Fill(type, int(random(0, view.getCubeCount())), int(map(val, 0, 127, 2000, 100)), "BOTTOM", true));
     } else if (type.equals("FILL_CUBE_TOP_DOWN_R")) {
-      layers.add(new L_Fill(int(random(0, view.getCubeCount())), int(map(val,0,127,2000,100)), "RIGHT",true));
+      layers.add(new L_Fill(type, int(random(0, view.getCubeCount())), int(map(val, 0, 127, 2000, 100)), "RIGHT", true));
     } else if (type.equals("FILL_CUBE_DOWN_TOP_R")) {
-      layers.add(new L_Fill(int(random(0, view.getCubeCount())), int(map(val,0,127,2000,100)), "LEFT",true));
-    } 
-    
-    
-    else if ( type.equals("FILL_TO_MID")) {
-      layers.add(new L_FillToMid(false, int(map(val,0,127,3000,100)),"LEFT"));
+      layers.add(new L_Fill(type, int(random(0, view.getCubeCount())), int(map(val, 0, 127, 2000, 100)), "LEFT", true));
+    } else if ( type.equals("FILL_TO_MID")) {
+      layers.add(new L_FillToMid(type, false, int(map(val, 0, 127, 3000, 100)), "LEFT"));
     } else if ( type.equals("FILL_TO_MID_RIGHT")) {
-      layers.add(new L_FillToMid(false, int(map(val,0,127,3000,100)),"RIGHT"));
+      layers.add(new L_FillToMid(type, false, int(map(val, 0, 127, 3000, 100)), "RIGHT"));
     } else if ( type.equals("FILL_TO_MID_SIDES")) {
-      layers.add(new L_FillToMid(true, int(map(val,0,127,3000,100)),"LEFT"));
+      layers.add(new L_FillToMid(type, true, int(map(val, 0, 127, 3000, 100)), "LEFT"));
     } else if ( type.equals("FILL_TO_MID_SIDES_RIGHT")) {
-      layers.add(new L_FillToMid(true, int(map(val,0,127,3000,100)),"RIGHT"));
-    }
-    
-    
-    
-    
-    else if (type.equals("OUTLINE_CUBE_LEFT_RIGHT")) {
-      layers.add(new L_Outline(int(random(0, view.getCubeCount())), int(map(val,0,127,2000,100)), 7));
+      layers.add(new L_FillToMid(type, true, int(map(val, 0, 127, 3000, 100)), "RIGHT"));
+    } else if (type.equals("OUTLINE_CUBE_LEFT_RIGHT")) {
+      layers.add(new L_Outline(type, int(random(0, view.getCubeCount())), int(map(val, 0, 127, 2000, 100)), 7));
     } else if (type.equals("OUTLINE_CUBE_RIGHT_LEFT")) {
-      layers.add(new L_Outline(int(random(0, view.getCubeCount())), int(map(val,0,127,2000,100)), 1));
+      layers.add(new L_Outline(type, int(random(0, view.getCubeCount())), int(map(val, 0, 127, 2000, 100)), 1));
     } else if (type.equals("OUTLINE_CUBE_TOP_DOWN")) {
-      layers.add(new L_Outline(int(random(0, view.getCubeCount())), int(map(val,0,127,2000,100)), 2));
+      layers.add(new L_Outline(type, int(random(0, view.getCubeCount())), int(map(val, 0, 127, 2000, 100)), 2));
     } else if (type.equals("OUTLINE_CUBE_DOWN_TOP")) {
-      layers.add(new L_Outline(int(random(0, view.getCubeCount())), int(map(val,0,127,2000,100)), 3));
-    } 
+      layers.add(new L_Outline(type, int(random(0, view.getCubeCount())), int(map(val, 0, 127, 2000, 100)), 3));
+    }
   }
+
+
 
 
 
@@ -251,6 +247,60 @@ class Set {
   }
 
 
+  /////////////////////ROW FILL FUNCTIONS ///////////////////
+
+
+  protected void updateRowPointer(int row, String side, int val, String type) {
+
+    if (side.equals("LEFT")) {
+      layers.add(new L_Fill("ROW "+ type, installation.getCubeCount()*rowPointer[row][0]+row, int(map(val, 0, 127, 2000, 100)), type, false));
+
+      if (rowPointer[row][0] < installation.getColumnsPerSideCount()-1 ) {
+        rowPointer[row][0]++;
+      } else {
+        rowPointer[row][0] = 0;
+      }
+    } else if (side.equals("RIGHT")) {
+      layers.add(new L_Fill("ROW "+ type, installation.getCubeCount()*rowPointer[row][1]+row+installation.getColumnsPerSideCount()*installation.getCubeCount(), int(map(val, 0, 127, 2000, 100)), type, false));
+
+      if (rowPointer[row][1] > 0 ) {
+        rowPointer[row][1]--;
+      } else {
+        rowPointer[row][1] = installation.getColumnsPerSideCount()-1;
+      }
+    } else if (side.equals("BOTH")) {
+      layers.add(new L_Fill("ROW "+ type, installation.getCubeCount()*rowPointer[row][0]+row, int(map(val, 0, 127, 2000, 100)), type, false));
+      if (rowPointer[row][0] < installation.getColumnsPerSideCount()-1 ) {
+        rowPointer[row][0]++;
+      } else {
+        rowPointer[row][0] = 0;
+      }
+      
+      
+      
+       String tmpType = "";
+       if(type.equals("LEFT")) {
+         tmpType = "RIGHT";
+       } else if(type.equals("RIGHT")) {
+         tmpType = "LEFT";
+       } else if(type.equals("TOP")) {
+         tmpType = "BOTTOM";
+       } else if(type.equals("BOTTOM")) {
+         tmpType = "TOP";
+       }
+       
+      
+      layers.add(new L_Fill("ROW "+ tmpType, installation.getCubeCount()*rowPointer[row][1]+row+installation.getColumnsPerSideCount()*installation.getCubeCount(), int(map(val, 0, 127, 2000, 100)), tmpType, false));
+      if (rowPointer[row][1] > 0 ) {
+        rowPointer[row][1]--;
+      } else {
+        rowPointer[row][1] = installation.getColumnsPerSideCount()-1;
+      }
+      
+      
+    }
+  }
+  /////////////////////ROW FILL FUNCTIONS ///////////////////
 
 
   /////////////////////COLUMN MAPPING -Sequences ///////////////////
@@ -274,9 +324,9 @@ class Set {
     }
     if (side2) {
 
-       colPercentStep = xPercent/(installation.getColumnsPerSideCount()+1);
-       colXPercent = xPercent;
-      for ( int i = installation.getColumnsPerSideCount()  ; i < installation.getColumnsPerSideCount()*2 ; i++) {
+      colPercentStep = xPercent/(installation.getColumnsPerSideCount()+1);
+      colXPercent = xPercent;
+      for ( int i = installation.getColumnsPerSideCount(); i < installation.getColumnsPerSideCount()*2; i++) {
         for (int j = i*installation.getCubeCount(); j < i*installation.getCubeCount() +installation.getCubeCount(); j++) {
           view.cubes.get(j).setMapping(true);
           view.cubes.get(j).setMidXPercent(constrain(colXPercent, 0, 100));
