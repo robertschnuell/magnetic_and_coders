@@ -8,7 +8,6 @@ float objectRadius = 0;
 float objectRR = 0;
 float objectSpeed = 0;
 float objectForce = 0;
-int strokeW = 1;
 
 Flock flock;
 

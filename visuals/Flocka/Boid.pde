@@ -82,7 +82,7 @@ class Boid {
   }
 
   void drawCircle() {
-    strokeWeight(strokeW);
+    strokeWeight(1);
     stroke(255);
     noFill();
 
@@ -101,7 +101,6 @@ class Boid {
     r = radius;
     maxspeed = speed;
     maxforce = force;
-    strokeW = 1;
     
     
     px = new float[pointsS];
