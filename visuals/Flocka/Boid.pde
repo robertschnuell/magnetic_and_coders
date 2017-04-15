@@ -18,6 +18,8 @@ class Boid {
   float r;
   float maxforce;    // Maximum steering force
   float maxspeed;    // Maximum speed
+  
+  int strokeW = 1;
 
   Boid(float x, float y) {
     points = 4;
@@ -31,7 +33,7 @@ class Boid {
     //maxforce = this.maxforce;
 
     maxspeed = 1;
-    //maxforce = 0.1;
+    maxforce = 0.1;
   }
 
   void run(ArrayList<Boid> boids) {
@@ -80,7 +82,7 @@ class Boid {
   }
 
   void drawCircle() {
-    strokeWeight(1);
+    strokeWeight(strokeW);
     stroke(255);
     noFill();
 
@@ -94,9 +96,13 @@ class Boid {
     }
   }
 
-  void setEllipse(int pointsS, float radius, float controlRadius) {
+  void setEllipse(int pointsS, float radius, float controlRadius, float speed, float force) {
     points = pointsS;
     r = radius;
+    maxspeed = speed;
+    maxforce = force;
+    strokeW = 1;
+    
     
     px = new float[pointsS];
     py = new float[pointsS];
@@ -142,8 +148,8 @@ class Boid {
     pushMatrix();
     translate(-width/2, -height/2);
     //setEllipse(points, r, r, maxspeed);
-    setEllipse(points, r, r);
-    //setEllipse(int(random(3, 12)), random(-100, 150), random(-100, 150), random(-100, 150));
+    setEllipse(points, r, r, maxspeed, maxforce);
+    //setEllipse(int(random(3, 12)), random(-100, 150), random(-100, 150), random(-100, 150), random(-100, 150));
     drawCircle();
     popMatrix();
   }

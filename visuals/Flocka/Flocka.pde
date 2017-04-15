@@ -3,11 +3,18 @@ MidiBus myBus; // The MidiBus - Chuchu
 boolean midiInput = false;
 
 
+int objectPoints = 4;
+float objectRadius = 0;
+float objectRR = 0;
+float objectSpeed = 0;
+float objectForce = 0;
+int strokeW = 1;
+
 Flock flock;
 
 void setup() {
   size(1280, 720);
-  myBus = new MidiBus(this, "LPD8", "");
+  myBus = new MidiBus(this, "MIDI Mix", "");
   flock = new Flock();
   // Add an initial set of boids into the system
   for (int i = 0; i < 1; i++) {
@@ -31,25 +38,48 @@ void draw() {
 
   myBus.sendControllerChange(channel, number, value); // Send a controllerChange
 
-
-  fill(0, 80);
+  fill(0, 40);
   rect(-10, -10, width+15, height+15);
   //background(255);
   flock.run();
-
-  // Instructions
-  fill(0);
-  //text("Drag the mouse to generate new boids.",10,height-16);
 }
-
 
 void controllerChange(int channel, int number, int value) {
 
-  if ( number == 1) {
 
-    flock.boids.get(0).setEllipse(4, value, value);
+  for ( int i = 0; i < flock.boids.size(); i++) {
+    flock.boids.get(i).setEllipse(objectPoints, objectRadius, objectRR, objectSpeed, objectForce);
   }
+
+
+  if ( number == 18) {
+    objectRadius = value;
+    //objectRR = value;
+  }
+
+  if ( number == 22) {
+    objectSpeed = value/10;
+    objectForce = value;
+    println("speed "+objectSpeed);
+  }
+
+  if ( number == 26) {
+    objectForce = value/10;
+    println("force "+objectForce);
+  }
+  
+    if ( number == 30) {
+    objectPoints = value/10;
+    println("points "+objectPoints);
+  }
+  
+  if (number == 48) {
+   objectRR = value*2; 
+    println("objectRR "+objectRR);
+  }
+ 
 }
+
 
 // Add a new boid into the System
 void mouseClicked() {
