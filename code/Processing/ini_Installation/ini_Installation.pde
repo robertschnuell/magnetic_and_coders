@@ -76,14 +76,14 @@ void draw() {
 }
 
 void staticDev() {
-  installation.setColumnPerc(0, 0, 50);
-  installation.setColumnPerc(0, 1, 50);
-  installation.setColumnPerc(0, 2, 50);
-  installation.setColumnPerc(0, 3, 50);
-  installation.setColumnPerc(1, 0, 50);
-  installation.setColumnPerc(1, 1, 50);
-  installation.setColumnPerc(1, 2, 50);
-  installation.setColumnPerc(1, 3, 50);
+  installation.setColumnPerc(0, 0, 0);
+  installation.setColumnPerc(0, 1, 0);
+  installation.setColumnPerc(0, 2, 0);
+  installation.setColumnPerc(0, 3, 0);
+  installation.setColumnPerc(1, 0, 0);
+  installation.setColumnPerc(1, 1, 0);
+  installation.setColumnPerc(1, 2, 0);
+  installation.setColumnPerc(1, 3, 0);
 }
 
 
@@ -163,7 +163,7 @@ void controllerChange(int channel, int number, int value) {
   println(number);
   switch(number) {
   case 28:
-    set.addMLayerData("POSITION", 0, int(random(0, 8)), random(0, 100));
+
     break;
   case 21:
     set.setColumnMappingXPercent(0, map(value, 0, 127, 0, 100));
@@ -302,7 +302,7 @@ void noteOn(int channel, int pitch, int velocity) {
   if (pitch == 48) {
     set.addLayer("FILL_TO_MID_SIDES", velocity);
   }
-  
+
   if (pitch == 47) {
     set.addLayer("FILL_CUBE_TOP_DOWN", velocity);
   }
@@ -315,21 +315,34 @@ void noteOn(int channel, int pitch, int velocity) {
   if (pitch == 44) {
     set.addLayer("FILL_CUBE_DOWN_TOP", velocity);
   }
-  
+
   if (pitch == 43) {
-    set.updateRowPointer(3,"LEFT",velocity,"LEFT");
+    ArrayList<Integer> rows = controlView.getSelectedRows(0);
+    for ( int i = 0; i < rows.size(); i++) {
+      set.updateRowPointer(rows.get(i), "LEFT", velocity, "LEFT");
+    }
     //updateRowPointer(int row, String side, int val, String type)
   }
   if (pitch == 42) {
-     set.updateRowPointer(3,"RIGHT",velocity,"LEFT");
+
+    ArrayList<Integer> rows = controlView.getSelectedRows(1);
+    for ( int i = 0; i < rows.size(); i++) {
+      set.updateRowPointer(rows.get(i), "RIGHT", velocity, "LEFT");
+    }
   }
   if (pitch == 41) {
-     set.updateRowPointer(3,"BOTH",velocity,"LEFT");
+    ArrayList<Integer> rows = controlView.getSelectedRows(0);
+    for ( int i = 0; i < rows.size(); i++) {
+      set.updateRowPointer(rows.get(i), "LEFT", velocity, "LEFT");
+    }
+    rows = controlView.getSelectedRows(1);
+    for ( int i = 0; i < rows.size(); i++) {
+      set.updateRowPointer(rows.get(i), "RIGHT", velocity, "LEFT");
+    }
   }
   if (pitch == 40) {
-    
   }
-  
+
   if (pitch == 39) {
   }
   if (pitch == 38) {

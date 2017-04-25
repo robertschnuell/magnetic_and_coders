@@ -31,8 +31,8 @@ class Installation {
         sides[i] = new Side(colCount, cubeCount, sidesPos[i][0], sidesPos[i][1]);
       }
     }
-    
-     cPercentBuffer = new float[sideCount * colCount];
+
+    cPercentBuffer = new float[sideCount * colCount];
 
 
 
@@ -161,9 +161,17 @@ class Installation {
   protected int getColumns() {
     return getSideCount()*getColumnsPerSideCount();
   }
-  
+
   protected float getColumnPercent(int c) {
     return cPercentBuffer[c];
+  }
+  protected boolean setSpeed( int c, float speed) {
+    if ( (c > 0) && (c < sides.length*colCount) ) {
+      if (speed >= 0 && speed <= 100) {
+        client.publish("a"+c+"/speed", str(speed));
+      }
+      return true;
+    } else return false;
   }
 
 
@@ -172,7 +180,7 @@ class Installation {
     client.publish("a"+ c + "/target", str(p));
     controlView.setTarget(c, p);
   }
-  
+
   protected void setTarget(int c, float p, float s ) {
     client.publish("a"+ c + "/target", str(p));
     client.publish("a"+ c + "/speed", str(s));

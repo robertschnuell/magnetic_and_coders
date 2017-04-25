@@ -13,20 +13,23 @@ class Set {
    */
 
   public ArrayList <Layer> layers;
-  public ArrayList <MLayer> mLayers;
 
+  public MovingColumn mColumns[];
 
-  public String mColumnUse[];
 
   private int[][] rowPointer; 
 
   protected Set() {
     layers = new ArrayList<Layer>();
-    mLayers = new ArrayList<MLayer>();
 
-    mColumnUse = new String[installation.getColumns()];
+
 
     rowPointer = new int[installation.getCubeCount()][installation.getSideCount()];
+
+    mColumns = new MovingColumn[installation.getColumns()];
+    for (int i = 0; i < mColumns.length; i++) {
+      mColumns[i] = new MovingColumn(i);
+    }
   }
 
   protected void update() {
@@ -38,20 +41,9 @@ class Set {
       }
     }
 
-
-    for ( int i = 0; i< mLayers.size(); i++) {
-      ArrayList<Integer> tmp = new ArrayList<Integer>();
-
-      for ( int j = 0; j < mColumnUse.length; j++) {
-        if ( (mLayers.get(i).getId()).equals(mColumnUse[j]) ) {
-
-          tmp.add(j);
-        }
-
-
-
-        mLayers.get(i).update(tmp);
-      }
+    for ( int i= 0; i <mColumns.length; i++) {
+      mColumns[i].setTarget(random(0, 100));
+      mColumns[i].sendSpeed();
     }
   }
 
@@ -107,25 +99,9 @@ class Set {
 
 
 
-  protected void addMLayerData(String type, int from, int to, float p) {
-    println(mLayers.size());
-    if (type.equals("POSITION")) {
-      ArrayList <Integer> tmp = new ArrayList<Integer>();
-      for ( int i = 0; i < (to-from); i++) {
-        tmp.add(i);
-      }
-      mLayers.add(new ML_Position(tmp, p, 10));
-      for (int i = from; i < to; i++) {
-        mColumnUse[i] = mLayers.get(mLayers.size()-1).getId();
-      }
-    }
-  }
 
-  protected void removeMLayer(int id) {
-    if ( id < mLayers.size()) {
-      mLayers.remove(id);
-    }
-  }
+
+
 
   protected void addLayer(String type) {
     if (type.equals("FILL_CUBE_RIGHT_LEFT")) {
@@ -275,29 +251,27 @@ class Set {
       } else {
         rowPointer[row][0] = 0;
       }
-      
-      
-      
-       String tmpType = "";
-       if(type.equals("LEFT")) {
-         tmpType = "RIGHT";
-       } else if(type.equals("RIGHT")) {
-         tmpType = "LEFT";
-       } else if(type.equals("TOP")) {
-         tmpType = "BOTTOM";
-       } else if(type.equals("BOTTOM")) {
-         tmpType = "TOP";
-       }
-       
-      
+
+
+
+      String tmpType = "";
+      if (type.equals("LEFT")) {
+        tmpType = "RIGHT";
+      } else if (type.equals("RIGHT")) {
+        tmpType = "LEFT";
+      } else if (type.equals("TOP")) {
+        tmpType = "BOTTOM";
+      } else if (type.equals("BOTTOM")) {
+        tmpType = "TOP";
+      }
+
+
       layers.add(new L_Fill("ROW "+ tmpType, installation.getCubeCount()*rowPointer[row][1]+row+installation.getColumnsPerSideCount()*installation.getCubeCount(), int(map(val, 0, 127, 2000, 100)), tmpType, false));
       if (rowPointer[row][1] > 0 ) {
         rowPointer[row][1]--;
       } else {
         rowPointer[row][1] = installation.getColumnsPerSideCount()-1;
       }
-      
-      
     }
   }
   /////////////////////ROW FILL FUNCTIONS ///////////////////

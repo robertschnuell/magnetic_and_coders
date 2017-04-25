@@ -152,4 +152,19 @@ class ControlView {
   protected float getCurrent(int c) {
     return currents[c];
   }
+  
+  protected ArrayList getSelectedRows(int side) {
+    ArrayList<Integer> result = new ArrayList<Integer>();
+    
+    
+      for ( int i = 0 ; i < selectedRows.length; i++) {
+        if(selectedRows[i][constrain(side,0,selectedRows[i].length)]) {
+          result.add(i);
+        }
+      }
+     
+    
+    
+    return result;
+  }
 }

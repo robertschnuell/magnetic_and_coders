@@ -30,6 +30,8 @@ bool status;
 bool limit;
  unsigned int accel;
 
+ bool idle  = true;
+
  unsigned long sendTimer = 0;
  int timeing = 50;
 
@@ -52,7 +54,7 @@ byte mac[] = {
   0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED
 };
 IPAddress ip(192, 168, 0, 177);
-IPAddress server(192, 168, 0, 104);
+IPAddress server(192, 168, 0, 100);
 
 EthernetClient ethClient;
 PubSubClient client(ethClient);
@@ -118,7 +120,30 @@ void ini() {
 }
 
 void loop() {
+  client.loop();
 
+
+
+  if (!client.connected()) {
+    if ( client.connect("testusr") ) {
+      Serial.println("connected");
+    }
+    String tmp = "a0 online ";
+    tmp += random(0,1000);
+    char temp[tmp.length() + 1];
+    tmp.toCharArray(temp, tmp.length() + 1);
+
+  //  Serial.println(tmp);
+
+    client.publish("a0/main", temp);
+    client.subscribe("a0/target");
+    client.subscribe("a0/speed");
+    client.subscribe("a0/main");
+  }
+
+
+
+if(!idle) {
   if(!digitalRead(7)) {
       limit = true;
   } else {
@@ -146,26 +171,7 @@ void loop() {
   if(!initialization) {
       ini();
   } else {
-    client.loop();
 
-
-
-    if (!client.connected()) {
-      if ( client.connect("testusr") ) {
-        Serial.println("connected");
-      }
-      String tmp = "a0 online ";
-      tmp += random(0,1000);
-      char temp[tmp.length() + 1];
-      tmp.toCharArray(temp, tmp.length() + 1);
-
-    //  Serial.println(tmp);
-
-      client.publish("a0/main", temp);
-      client.subscribe("a0/target");
-      client.subscribe("a0/speed");
-      client.subscribe("a0/main");
-    }
 
 
 
@@ -190,6 +196,7 @@ void loop() {
 
 
   } // end if INI
+}
 
 
 }
@@ -243,13 +250,18 @@ void callback(char* topic, byte* payload, unsigned int length) {
         Serial.print("max is now:\t");
         Serial.println(max);
 
-      } 
+      } else if(msgString.substring(0,msgString.indexOf(' ')).equals("idle")) {
+        if((msgString.substring(msgString.indexOf(' ')+1)).toInt() == 1) {
+          idle = true;
+          Serial.println("idle == 1");
+        } else if( (msgString.substring(msgString.indexOf(' ')+1)).toInt() == 0) {
+          idle = false;
+        }
+      }
 
     }
 
   }
-
-
   /*
 
 

@@ -53,7 +53,7 @@ printStatus();
   }
 
   protected void selfdestuction() {
-    set.mLayers.remove(this);
+    //set.mLayers.remove(this);
   }
 
   protected String getId() {
