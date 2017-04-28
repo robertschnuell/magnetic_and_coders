@@ -15,7 +15,7 @@ class Square {
 
   private  SquareState master;
 
-  private  boolean showStates = false;
+  private  boolean showStates = true;
   private  boolean showMaster = true;
   private  boolean active = false;
 
@@ -178,6 +178,10 @@ class Square {
   protected void changeState(int s, int p, int x_, int y_) {
     states.get(s).change(p, x_, y_);
   }
+  protected void jsonToData(int s, int p , int x, int y) {
+    states.get(s).JsonToData(p, x, y);
+    
+  }
 
   protected void setStateActive(int s, boolean a) {
     states.get(s).setActive(a);
@@ -201,22 +205,39 @@ class Square {
     }
     return cords;
   }
-  
+
   protected float[][] getStatesCoords() {
     float [][] result;
     result = new float[states.size()][8];
-    
-    for ( int i = 0; i < states.size();i++) {
-      
+
+    for ( int i = 0; i < states.size(); i++) {
+
+      /*
       for( int j = 0; j < 4; j++) {
-        result[i][j] = states.get(i).getX(j);
-        result[i][j+1] = states.get(i).getY(j);
-      }
+       result[i][j] = states.get(i).getX(j);
+       result[i][j+1] = states.get(i).getY(j);
+       //print("x: " + result[i][j]  );
+       //println("y: " + result[i][j+1]);
+       }
+       */
+      result[i][0] = states.get(i).getX(0);
+      result[i][1] = states.get(i).getX(1);
+      result[i][2] = states.get(i).getX(2);
+      result[i][3] = states.get(i).getX(3);
+      
+      result[i][4] = states.get(i).getY(0);
+      result[i][5] = states.get(i).getY(1);
+      result[i][6] = states.get(i).getY(2);
+      result[i][7] = states.get(i).getY(3);
     }
-    
-    
+
+
+
     return result;
-    
+  }
+
+  protected int getStatesSize() {
+    return this.states.size();
   }
 
 

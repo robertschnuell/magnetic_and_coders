@@ -60,7 +60,7 @@ void setup() {
 
   staticDev();
 
-  // exportDataToJson();
+  //exportDataToJson();
 }
 
 
@@ -108,7 +108,7 @@ public void keyPressed()
   if (key == CODED) {
     if (keyCode == UP) {
       //send up
-      installation.setTarget(int(random(1, 8)), random(0, 100));
+      //installation.setTarget(int(random(1, 8)), random(0, 100));  be aware of devcode!!
       installation.checkKey(0);
       // right.checkKey(0);
     } else if (keyCode == DOWN) {
@@ -140,6 +140,25 @@ public void keyPressed()
   }
   if (key == 'h') {
     //  set.addMLayer("HOME");
+  }
+  if (key == 'q') {
+   // testExport();
+   expJson();
+  }
+  if(key == 'a') {
+    importJsonToData();
+  }
+  if (key == 'w') {
+    for ( int i = 0; i < installation.getColumns(); i++) {
+      installation.setTarget(i, 0);
+      delay(15);
+    }
+  }
+  if (key == 's') {
+    for ( int i = 0; i < installation.getColumns(); i++) {
+      installation.setTarget(i, 100);
+      delay(15);
+    }
   }
 
 
@@ -372,6 +391,139 @@ void noteOn(int channel, int pitch, int velocity) {
 
 /////////////////////SETTINGS IMPORT / EXPORT VIA JSON ///////////////////
 
+void testExport() {
+  float  [][][][][] tmp = installation.getStates();
+  //sides][columns][cubes each column][states][stateCoords]
+  // i       j            k              l       m
+
+  String t = "";
+  for ( int i = 0; i < tmp.length; i++) { 
+    for (int j = 0; j < tmp[i].length; j++) {
+      for (int k = 0; k < tmp[i][j].length; k++) {
+        for ( int l = 0; l < tmp[i][j][k].length; l++) {
+          for (int m = 0; m < tmp[i][j][k][l].length; m++) {
+
+            t += tmp[i][j][k][l][m];
+
+            t += ", ";
+          }
+        }
+        t += "\n";
+      }
+    }
+  }
+  println(t);
+}
+
+void expJson() {
+
+  float  [][][][][] tmp = installation.getStates();
+  //sides][columns][cubes each column][states][stateCoords]
+  // i       j            k              l       m
+
+  String t = "";
+  JSONArray jsonExport = new JSONArray();
+
+  for ( int i = 0; i < tmp.length; i++) { 
+    JSONArray columns = new JSONArray();
+    for (int j = 0; j < tmp[i].length; j++) {
+      JSONArray cubes = new JSONArray();
+      for (int k = 0; k < tmp[i][j].length; k++) {
+        JSONArray states = new JSONArray();
+        for ( int l = 0; l < tmp[i][j][k].length; l++) {
+
+          JSONObject squareState = new JSONObject();
+
+
+          squareState.setInt("x0", int(tmp[i][j][k][l][0]));
+          squareState.setInt("x1", int(tmp[i][j][k][l][1]));
+          squareState.setInt("x2", int(tmp[i][j][k][l][2]));
+          squareState.setInt("x3", int(tmp[i][j][k][l][3]));
+
+          squareState.setInt("y0", int(tmp[i][j][k][l][4]));
+          squareState.setInt("y1", int(tmp[i][j][k][l][5]));
+          squareState.setInt("y2", int(tmp[i][j][k][l][6]));
+          squareState.setInt("y3", int(tmp[i][j][k][l][7]));
+
+          states.setJSONObject(l, squareState);
+
+
+
+          //t += tmp[i][j][k][l][m];
+         // t += ", ";
+        }
+        cubes.setJSONArray(k, states);
+        t += "\n";
+      }
+      columns.setJSONArray(j, cubes);
+    }
+    jsonExport.setJSONArray(i, columns);
+  }
+   println(jsonExport);
+   saveJSONArray(jsonExport, "data/mapping.json");
+}
+
+void importJsonToData() {
+    JSONArray jsonImport;
+
+  jsonImport = loadJSONArray("mapping.json");
+  //aka sides
+  for ( int i = 0; i < jsonImport.size(); i++) {
+    JSONArray columns = jsonImport.getJSONArray(i); 
+    for( int j = 0; j < columns.size();j++) {
+     JSONArray cubes = columns.getJSONArray(j);
+     for(int k = 0; k < columns.size();k++) {
+      JSONArray states = cubes.getJSONArray(k);
+      for ( int l = 0; l < states.size();l++) {
+        //states here
+        //jsonToData(int side, int column, int cube, int state, int p, int x, int y)
+        
+        JSONObject state = states.getJSONObject(l);
+        int x0 = state.getInt("x0");
+        int x1 = state.getInt("x1");
+        int x2 = state.getInt("x2");
+        int x3 = state.getInt("x3");
+        
+        int y0 = state.getInt("y0");
+        int y1 = state.getInt("y1");
+        int y2 = state.getInt("y2");
+        int y3 = state.getInt("y3");
+        
+   
+        installation.jsonToData(i,j,k,l,0,x0,y0);
+        installation.jsonToData(i,j,k,l,1,x1,y1);
+        installation.jsonToData(i,j,k,l,2,x2,y2);
+        installation.jsonToData(i,j,k,l,3,x3,y3);
+      }
+     }
+    }
+  
+  }
+
+}
+
+/*
+
+void importDataToJson() {
+  JSONArray jsonImport;
+
+  jsonImport = loadJSONArray("settings.json");
+
+
+  if (jsonImport.size() == motors.size() ) {
+    for ( int i = 0; i < motors.size(); i++) {
+      JSONObject motor = jsonImport.getJSONObject(i);
+
+      if (motor.getInt("id") == i) {
+        motors.get(i).setMin(motor.getInt("min"));
+        motors.get(i).setMax(motor.getInt("max"));
+        motors.get(i).setCurrentPos(motor.getInt("current"));
+      }
+    }
+  }
+}
+
+*/
 
 void exportDataToJson() {
   JSONArray jsonExport = new JSONArray();

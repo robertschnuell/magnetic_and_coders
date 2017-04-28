@@ -99,4 +99,38 @@ class Side {
 
     columns.get(c).setPerc(p);
   }
+
+  protected float[][][][] getSquareStates() {
+    //float[][][][] tmp = new float [2];
+    // [][][cubes][states][stateCoords]
+    //[columns][cubes each column][states][stateCoords]
+    // 8 for 4 x and y coordinates
+    float tmp [][][][] = new float [columns.size()][columns.get(0).getCubeCount()][columns.get(0).getStatesCount()][8];
+
+    for ( int i = 0; i < columns.size(); i++) {
+      tmp[i] = columns.get(i).getSquareStates();
+      for( int j = 0; j < 8; j++) {
+     // println(tmp[0][0][0][j]);
+      }
+    }
+    //println("-------");
+
+    return tmp;
+  }
+  
+  protected void jsonToData(int column, int cube, int state, int p, int x, int y) {
+    /*
+    void jsonToData(int cube, int state, int p , int x, int y) {
+    squares[cube].changeState(state,p,x,y);
+    */
+    columns.get(column).jsonToData(cube,state,p,x,y);
+    
+    
+    
+    
+    
+  }
+  
+  
+  
 }

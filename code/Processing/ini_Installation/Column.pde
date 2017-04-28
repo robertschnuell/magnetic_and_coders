@@ -176,6 +176,13 @@ class Column {
       }
     }
   }
+  
+  void jsonToData(int cube, int state, int p , int x, int y) {
+    squares[cube].jsonToData(state,p,x,y);
+    //changeState(int s, int p, int x_, int y_)
+    
+  }
+  
 
 
 
@@ -216,7 +223,32 @@ class Column {
   protected float[][] getCubeCords(int pos) {
     return squares[pos].getCords();
   }
-  
+
+  protected int getStatesCount() {
+    return squares[0].getStatesSize();
+  }
+  protected int getCubeCount() {
+    return squares.length;
+  }
+
+  protected float[][][] getSquareStates() {
+    float [][][] tmp = new float[squares.length][squares[0].getStatesSize()][8];
+
+    for ( int i = 0; i <squares.length; i++) {
+      float[][] squareCords = squares[i].getStatesCoords();
+      tmp[i] = squareCords;
+
+      //for ( int j = 0; j < tmp[i][0].length; j++) {
+       // print(i+ "\t " + j + "\t x: " +tmp[i][0][j]);
+       // println("y: " +tmp[i][0][j]);
+     // }
+      
+    }
+   // println("-------");
+
+    return tmp;
+  }
+
 
 
 

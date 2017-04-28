@@ -93,6 +93,26 @@ class SquareState {
       break;
     }
   }
+  protected void JsonToData(int p, int x_, int y_) {
+    switch(p) {
+    case 0:
+      x1 = x_;
+      y1 = y_;
+      break;
+    case 1:
+      x2 = x_;
+      y2 = y_;
+      break;
+    case 2:
+      x3 = x_;
+      y3 = y_;
+      break;
+    case 3:
+      x4 = x_;
+      y4 = y_;
+      break;
+    }
+  }
 
   protected void setX(int p, float val ) {
     switch(p) {

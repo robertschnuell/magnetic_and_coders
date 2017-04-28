@@ -37,7 +37,7 @@ class MovingColumn {
   }
 
   private void sendTarget() {
-
+    //delay(15);
     installation.setTarget(id, constrain(targetPos, 0, 100));
   }
   protected void setTarget(float target) {
@@ -55,7 +55,7 @@ class MovingColumn {
 
 
 
-        println("new Target: " + target);
+        //println("new Target: " + target);
 
         lastBeginPos = targetPos;
         targetPos = target;
@@ -68,7 +68,7 @@ class MovingColumn {
       lastSpeedSend = millis();
       if (easing) {
         float tmp = map(constrain(calcEasing(),1,50),1,50,1,maxSpeed);
-        println(tmp);
+        //println(tmp);
         //installation.setSpeed(id, tmp);
 
       }

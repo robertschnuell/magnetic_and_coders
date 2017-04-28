@@ -186,6 +186,46 @@ class Installation {
     client.publish("a"+ c + "/speed", str(s));
     controlView.setTarget(c, p);
   }
+  
+  protected float [][][][][] getStates() {
+    float tmp[][][][][] = new float [sides.length][][][][];
+    //sides][columns][cubes each column][states][stateCoords]
+    
+    for ( int i = 0; i < sides.length; i++) {
+      tmp[i] = sides[i].getSquareStates();
+      
+    }
+    
+    
+    return tmp;
+    
+  }
+  
+  protected void jsonToData(int side, int column, int cube, int state, int p, int x, int y) {
+    //jsonToData(int column, int cube, int state, int p, int x, int y) 
+    
+    sides[side].jsonToData(column,cube, state, p , x, y);
+    
+  }
+  
+  
+  /*
+  
+    protected float[][][][] getSquareStates() {
+    //float[][][][] tmp = new float [2];
+    // [][][cubes][states][stateCoords]
+    //[columns][cubes each column][states][stateCoords]
+    float tmp [][][][] = new float [columns.size()][columns.get(0).getCubeCount()][columns.get(0).getStatesCount()][8];
+
+    for ( int i = 0; i < columns.size(); i++) {
+      tmp[i] = columns.get(i).getSquareStates();
+
+    }
+    
+    return tmp;
+  }
+  
+  */
 
 
   /////////////////////USER GETTER/ SETTER END ///////////////////

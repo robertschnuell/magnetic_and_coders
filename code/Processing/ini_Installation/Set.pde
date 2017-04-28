@@ -18,6 +18,14 @@ class Set {
 
 
   private int[][] rowPointer; 
+  
+  
+  // Moving Functions
+  boolean mRandom = false;
+  boolean mSinus = false;
+  boolean mV = false;
+  boolean mLine = false;
+  boolean mFree = true;
 
   protected Set() {
     layers = new ArrayList<Layer>();
