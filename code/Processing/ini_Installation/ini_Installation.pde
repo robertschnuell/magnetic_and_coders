@@ -142,10 +142,10 @@ public void keyPressed()
     //  set.addMLayer("HOME");
   }
   if (key == 'q') {
-   // testExport();
-   expJson();
+    // testExport();
+    expJson();
   }
-  if(key == 'a') {
+  if (key == 'a') {
     importJsonToData();
   }
   if (key == 'w') {
@@ -176,14 +176,28 @@ void mousePressed() {
 
 //MIDI
 
+//tmp Controller Variables
+int SliderC0 = 0;
+int SliderC1 = 0;
+int SliderC2 = 0;
+int SliderC3 = 0;
+int SliderC4 = 0;
+int SliderC5 = 0;
+int SliderC6 = 0;
+int SliderC7 = 0;
+
 void controllerChange(int channel, int number, int value) {
   float tmpPerc = map(value, 0, 127, 0.1, 100);
 
-  println(number);
+  //println("n: " +number);
+ // println("c: " + channel);
+ // println("v: " + value);
   switch(number) {
   case 28:
 
     break;
+
+    //SLIDER A
   case 21:
     set.setColumnMappingXPercent(0, map(value, 0, 127, 0, 100));
     break;
@@ -210,6 +224,76 @@ void controllerChange(int channel, int number, int value) {
   case 27:
     set.setAllMappingMidY(map(value, 0, 127, 0, 100));
     break;
+
+
+    //SLIDER C
+  case 92:
+    SliderC0 = value;
+    break;
+  case 93: 
+    SliderC1 = value;
+    break;
+  case 94 :
+    SliderC2 = value;
+    break;
+  case 95 :
+    SliderC3 = value;
+    break;
+  case 102:
+    SliderC4 = value;
+    break;
+  case 103:
+    SliderC5 = value;
+    break;
+  case 104:
+    SliderC6 = value;
+    break;
+  case 105:
+    SliderC7 = value;
+    break;
+
+    //BUTTONS C
+  case 106:
+    if (value == 127) {
+      set.setFreeColumn(0, map(SliderC0, 0, 127, 100, 0));
+    }
+    break;
+  case 107: 
+    if (value == 127) {
+      set.setFreeColumn(1, map(SliderC1, 0, 127, 100, 0));
+    }
+    break;
+  case 108 :
+    if (value == 127) {
+      set.setFreeColumn(2, map(SliderC2, 0, 127, 100, 0));
+    }
+    break;
+  case 109 :
+    if (value == 127) {
+      set.setFreeColumn(3, map(SliderC3, 0, 127, 100, 0));
+    }
+    break;
+  case 110:
+    if (value == 127) {
+      set.setFreeColumn(4, map(SliderC4, 0, 127, 100, 0));
+    }
+    break;
+  case 111:
+    if (value == 127) {
+      set.setFreeColumn(5, map(SliderC5, 0, 127, 100, 0));
+    }
+    break;
+  case 112:
+    if (value == 127) {
+      set.setFreeColumn(6, map(SliderC6, 0, 127, 100, 0));
+    }
+    break;
+  case 113:
+    if (value == 127) {
+      set.setFreeColumn(7, map(SliderC7, 0, 127, 100, 0));
+    }
+    break;
+
 
   default:
   }
@@ -450,7 +534,7 @@ void expJson() {
 
 
           //t += tmp[i][j][k][l][m];
-         // t += ", ";
+          // t += ", ";
         }
         cubes.setJSONArray(k, states);
         t += "\n";
@@ -459,71 +543,69 @@ void expJson() {
     }
     jsonExport.setJSONArray(i, columns);
   }
-   println(jsonExport);
-   saveJSONArray(jsonExport, "data/mapping.json");
+  println(jsonExport);
+  saveJSONArray(jsonExport, "data/mapping.json");
 }
 
 void importJsonToData() {
-    JSONArray jsonImport;
+  JSONArray jsonImport;
 
   jsonImport = loadJSONArray("mapping.json");
   //aka sides
   for ( int i = 0; i < jsonImport.size(); i++) {
     JSONArray columns = jsonImport.getJSONArray(i); 
-    for( int j = 0; j < columns.size();j++) {
-     JSONArray cubes = columns.getJSONArray(j);
-     for(int k = 0; k < columns.size();k++) {
-      JSONArray states = cubes.getJSONArray(k);
-      for ( int l = 0; l < states.size();l++) {
-        //states here
-        //jsonToData(int side, int column, int cube, int state, int p, int x, int y)
-        
-        JSONObject state = states.getJSONObject(l);
-        int x0 = state.getInt("x0");
-        int x1 = state.getInt("x1");
-        int x2 = state.getInt("x2");
-        int x3 = state.getInt("x3");
-        
-        int y0 = state.getInt("y0");
-        int y1 = state.getInt("y1");
-        int y2 = state.getInt("y2");
-        int y3 = state.getInt("y3");
-        
-   
-        installation.jsonToData(i,j,k,l,0,x0,y0);
-        installation.jsonToData(i,j,k,l,1,x1,y1);
-        installation.jsonToData(i,j,k,l,2,x2,y2);
-        installation.jsonToData(i,j,k,l,3,x3,y3);
-      }
-     }
-    }
-  
-  }
+    for ( int j = 0; j < columns.size(); j++) {
+      JSONArray cubes = columns.getJSONArray(j);
+      for (int k = 0; k < columns.size(); k++) {
+        JSONArray states = cubes.getJSONArray(k);
+        for ( int l = 0; l < states.size(); l++) {
+          //states here
+          //jsonToData(int side, int column, int cube, int state, int p, int x, int y)
 
+          JSONObject state = states.getJSONObject(l);
+          int x0 = state.getInt("x0");
+          int x1 = state.getInt("x1");
+          int x2 = state.getInt("x2");
+          int x3 = state.getInt("x3");
+
+          int y0 = state.getInt("y0");
+          int y1 = state.getInt("y1");
+          int y2 = state.getInt("y2");
+          int y3 = state.getInt("y3");
+
+
+          installation.jsonToData(i, j, k, l, 0, x0, y0);
+          installation.jsonToData(i, j, k, l, 1, x1, y1);
+          installation.jsonToData(i, j, k, l, 2, x2, y2);
+          installation.jsonToData(i, j, k, l, 3, x3, y3);
+        }
+      }
+    }
+  }
 }
 
 /*
 
-void importDataToJson() {
-  JSONArray jsonImport;
-
-  jsonImport = loadJSONArray("settings.json");
-
-
-  if (jsonImport.size() == motors.size() ) {
-    for ( int i = 0; i < motors.size(); i++) {
-      JSONObject motor = jsonImport.getJSONObject(i);
-
-      if (motor.getInt("id") == i) {
-        motors.get(i).setMin(motor.getInt("min"));
-        motors.get(i).setMax(motor.getInt("max"));
-        motors.get(i).setCurrentPos(motor.getInt("current"));
-      }
-    }
-  }
-}
-
-*/
+ void importDataToJson() {
+ JSONArray jsonImport;
+ 
+ jsonImport = loadJSONArray("settings.json");
+ 
+ 
+ if (jsonImport.size() == motors.size() ) {
+ for ( int i = 0; i < motors.size(); i++) {
+ JSONObject motor = jsonImport.getJSONObject(i);
+ 
+ if (motor.getInt("id") == i) {
+ motors.get(i).setMin(motor.getInt("min"));
+ motors.get(i).setMax(motor.getInt("max"));
+ motors.get(i).setCurrentPos(motor.getInt("current"));
+ }
+ }
+ }
+ }
+ 
+ */
 
 void exportDataToJson() {
   JSONArray jsonExport = new JSONArray();

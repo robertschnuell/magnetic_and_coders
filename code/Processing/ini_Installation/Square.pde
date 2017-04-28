@@ -15,7 +15,7 @@ class Square {
 
   private  SquareState master;
 
-  private  boolean showStates = true;
+  private  boolean showStates = false;
   private  boolean showMaster = true;
   private  boolean active = false;
 

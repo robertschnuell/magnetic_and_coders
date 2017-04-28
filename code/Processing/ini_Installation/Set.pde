@@ -18,14 +18,19 @@ class Set {
 
 
   private int[][] rowPointer; 
-  
-  
+
+
   // Moving Functions
   boolean mRandom = false;
   boolean mSinus = false;
   boolean mV = false;
   boolean mLine = false;
   boolean mFree = true;
+  boolean mSplit = false;
+
+  //mSplit
+  boolean mSplitInit = false;
+  boolean mSplitSwitch = false;
 
   protected Set() {
     layers = new ArrayList<Layer>();
@@ -49,11 +54,70 @@ class Set {
       }
     }
 
-    for ( int i= 0; i <mColumns.length; i++) {
-      mColumns[i].setTarget(random(0, 100));
-      mColumns[i].sendSpeed();
+    //SWITCH MOVING MODES
+    if (mFree) {
+      //do
+    } else if (mRandom) {
+      for ( int i= 0; i <mColumns.length; i++) {
+        mColumns[i].setTarget(random(0, 100));
+        mColumns[i].sendSpeed();
+      }
+    } else if (mSinus) {
+    } else if (mV) {
+    } else if (mLine) {
+    } else if (mSplit) {
+      if (!mSplitInit) {
+        boolean tmp = false;
+        for ( int i = 0; i< mColumns.length; i++) {
+          if (mColumns[i].getMoving()) {
+            tmp = true;
+          }
+        }
+        if (!tmp) {
+          mSplitInit = true;
+        }
+        for ( int i = 0; i< mColumns.length; i++) {
+          if ( i%2 == 0) {
+            mColumns[i].setTarget(0);
+          } else {
+            mColumns[i].setTarget(100);
+          }
+        }
+      } else {
+
+        boolean tmp = false;
+        for ( int i = 0; i< mColumns.length; i++) {
+          if (mColumns[i].getMoving()) {
+            tmp = true;
+          }
+        }
+        if (!tmp) {
+          if (mSplitSwitch) {
+            mSplitSwitch = !mSplitSwitch;
+            for ( int i = 0; i< mColumns.length; i++) {
+              if ( i%2 == 0) {
+                mColumns[i].setTarget(100);
+              } else {
+                mColumns[i].setTarget(0);
+              }
+            }
+          } else {
+            mSplitSwitch = !mSplitSwitch;
+            for ( int i = 0; i< mColumns.length; i++) {
+              if ( i%2 == 0) {
+                mColumns[i].setTarget(0);
+              } else {
+                mColumns[i].setTarget(100);
+              }
+            }
+          }
+        }
+      }
     }
+    // END SWITCH MOVING MODES
   }
+
+
 
 
 
@@ -105,6 +169,96 @@ class Set {
    }
    */
 
+
+
+  //MOVING FUNCTIONS
+
+  protected void setFreeColumn(int id, float p) {
+    if (mFree) {
+      mColumns[id].setTarget(p);
+    }
+  }
+
+  //SETTER
+  protected void setMFree(boolean s) {
+    mFree = true;
+    mRandom = false;
+    mSinus = false;
+    mV = false;
+    mLine = false;
+    mSplit = false;
+  }
+  protected void setMRandom(boolean s) {
+    mFree = false;
+    mRandom = true;
+    mSinus = false;
+    mV = false;
+    mLine = false;
+    mSplit = false;
+  }
+  protected void setMSinus(boolean s) {
+    mFree = false;
+    mRandom = false;
+    mSinus = true;
+    mV = false;
+    mLine = false;
+    mSplit = false;
+  }
+  protected void setMLine(boolean s) {
+    mFree = false;
+    mRandom = false;
+    mSinus = false;
+    mV = false;
+    mLine = true;
+    mSplit = false;
+  }
+  protected void setMV(boolean s) {
+    mFree = false;
+    mRandom = false;
+    mSinus = false;
+    mV = true;
+    mLine = false;
+    mSplit = false;
+  }
+  protected void setMSplit(boolean s) {
+    mFree = false;
+    mRandom = false;
+    mSinus = false;
+    mV = false;
+    mLine = false;
+    mSplit = true;
+  }
+
+  protected boolean getMSplit() {
+    return this.mSplit;
+  }
+  protected boolean getMFree() {
+    return this.mFree;
+  }
+  protected boolean getMRandom() {
+    return this.mRandom;
+  }
+  protected boolean getMSinus() {
+    return this.mSinus;
+  }
+  protected boolean getMLine() {
+    return this.mLine;
+  }
+  protected boolean getMV() {
+    return this.mV;
+  }
+  
+  protected void MCReset() {
+    for ( int i = 0; i < mColumns.length ; i++) {
+      mColumns[i].resetPos();
+    }
+  }
+  protected void MCResetToZero(int id) {
+    mColumns[id].resetPosToZero();
+  }
+
+
+  //MOMVING FUNCTIONS END
 
 
 

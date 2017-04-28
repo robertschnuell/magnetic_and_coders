@@ -67,10 +67,9 @@ class MovingColumn {
     if ( (lastSpeedSend + speedSendInterv) < millis() ) {
       lastSpeedSend = millis();
       if (easing) {
-        float tmp = map(constrain(calcEasing(),1,50),1,50,1,maxSpeed);
+        float tmp = map(constrain(calcEasing(), 1, 50), 1, 50, 1, maxSpeed);
         //println(tmp);
         //installation.setSpeed(id, tmp);
-
       }
     }
   }
@@ -110,5 +109,16 @@ class MovingColumn {
       result = abs(installation.getColumnPercent(id) - lastBeginPos);
     }
     return result;
+  }
+
+  protected void resetPos() {
+    lastBeginPos = 0;
+    targetPos = 0;
+  }
+  protected void resetPosToZero() {
+    lastBeginPos = 0;
+    targetPos = 0;
+    installation.setTarget(id, 0);
+    
   }
 }
