@@ -20,7 +20,7 @@ class MovingColumn {
   private int id;
   private float easingSpeed;
   private long lastSpeedSend = 0;
-  private long speedSendInterv = 70;
+  private long speedSendInterv = 750;
   private long lastCurrentPosTimer = 0;
   private float lastCurrentPos = 0;
   private long lastCurrentInterv = 100;
@@ -69,7 +69,7 @@ class MovingColumn {
       if (easing) {
         float tmp = map(constrain(calcEasing(),1,50),1,50,1,maxSpeed);
         println(tmp);
-        installation.setSpeed(id, tmp);
+        //installation.setSpeed(id, tmp);
 
       }
     }

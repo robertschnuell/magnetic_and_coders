@@ -17,6 +17,13 @@ class Cube {
   private boolean fill = false;
   private boolean stroke = false;
 
+  //NoiseFill
+  private float fillNoiseInc =0;
+
+  private int fSpeed = 1;
+  private float fillNoiseVal = 0;
+  private boolean fillNoise = true;
+
   private color fillColor = color(255, 255, 255);
   private color strokeColor = color(255, 255, 255);
 
@@ -69,6 +76,14 @@ class Cube {
     this.coordinates = coords;
   }
 
+  private color noiseFill(color tmpC) {
+
+
+    fillNoiseInc += 0.01*fSpeed;
+    fillNoiseVal = noise(fillNoiseInc);
+    return color(int(red(tmpC)*fillNoiseVal), int(green(tmpC)*fillNoiseVal), int(blue(tmpC)*fillNoiseVal));
+  }
+
 
 
   protected void update() {
@@ -81,12 +96,18 @@ class Cube {
 
     if (fill) {
       fill(fillColor);
+      if (fillNoise) {
+        fill(noiseFill(fillColor));
+      }
     } else {
       noFill();
     }
     if (stroke) {
       strokeCap(SQUARE);
       stroke(strokeColor);
+      if (fillNoise) {
+        fill(noiseFill(fillColor));
+      }
       strokeWeight(strokeWidth);
     } else {
       noStroke();
@@ -141,6 +162,9 @@ class Cube {
     if (side1) {
       noStroke();
       fill(cSide1);
+      if (fillNoise) {
+        fill(noiseFill(cSide1));
+      }
       beginShape();
       vertex(coordinates[0][0], coordinates[0][1]);
       vertex(coordinates[1][0], coordinates[1][1]);
@@ -151,6 +175,9 @@ class Cube {
     if (side2) {
       noStroke();
       fill(cSide2);
+      if (fillNoise) {
+        fill(noiseFill(cSide2));
+      }
       beginShape();
       vertex(coordinates[1][0], coordinates[1][1]);
       vertex(coordinates[2][0], coordinates[2][1]);
@@ -161,6 +188,9 @@ class Cube {
     if (side3) {
       noStroke();
       fill(cSide3);
+      if (fillNoise) {
+        fill(noiseFill(cSide3));
+      }
       beginShape();
       vertex(coordinates[2][0], coordinates[2][1]);
       vertex(coordinates[3][0], coordinates[3][1]);
@@ -171,6 +201,9 @@ class Cube {
     if (side4) {
       noStroke();
       fill(cSide4);
+      if (fillNoise) {
+        fill(noiseFill(cSide4));
+      }
       beginShape();
       vertex(coordinates[3][0], coordinates[3][1]);
       vertex(coordinates[0][0], coordinates[0][1]);
@@ -181,6 +214,9 @@ class Cube {
     if (side5) {
       noStroke();
       fill(cSide5);
+      if (fillNoise) {
+        fill(noiseFill(cSide5));
+      }
       beginShape();
       vertex(mapCoordinates[0][0], mapCoordinates[0][1]);
       vertex(mapCoordinates[1][0], mapCoordinates[1][1]);
@@ -337,6 +373,19 @@ class Cube {
   }
   protected void setDrawOutlineSubtype( boolean s) {
     this.drawOutlineSubtype = s;
+  }
+  
+  protected void setNoise(boolean n) {
+    this.fillNoise = n;
+  }
+  protected boolean getNoise() {
+    return this.fillNoise;
+  }
+  protected void setNoiseSpeed(float nS) {
+    this.fSpeed = int(nS);
+  }
+    protected float setNoiseSpeed() {
+    return this.fSpeed;
   }
 
 
@@ -498,6 +547,9 @@ class Cube {
   private void drawFill(String type, float percent, color c) {
     calcFillCoords(type, percent);
     fill(c);
+                      if(fillNoise) {
+        fill(noiseFill(c));
+      }
     noStroke();
     beginShape();
     for ( int i = 0; i < 4; i++) {

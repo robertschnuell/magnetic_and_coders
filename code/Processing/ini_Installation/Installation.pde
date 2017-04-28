@@ -166,7 +166,7 @@ class Installation {
     return cPercentBuffer[c];
   }
   protected boolean setSpeed( int c, float speed) {
-    if ( (c > 0) && (c < sides.length*colCount) ) {
+    if ( (c >= 0) && (c < sides.length*colCount) ) {
       if (speed >= 0 && speed <= 100) {
         client.publish("a"+c+"/speed", str(speed));
       }

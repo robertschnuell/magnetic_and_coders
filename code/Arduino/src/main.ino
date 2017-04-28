@@ -26,6 +26,7 @@ unsigned int current;
  int target;
  int speed;
 int maxSpeed;
+int minSpeed;
 bool status;
 bool limit;
  unsigned int accel;
@@ -51,9 +52,9 @@ kissStepper mot(
 
 ////// Network and MQTT ////////
 byte mac[] = {
-  0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED
+  0xDE, 0xEA, 0xEE, 0xEF, 0xFF, 0xFE
 };
-IPAddress ip(192, 168, 0, 177);
+IPAddress ip(192, 168, 0, 113);
 IPAddress server(192, 168, 0, 100);
 
 EthernetClient ethClient;
@@ -76,7 +77,8 @@ void setup() {
   status = false;
   limit = false;
   accel = 400;
-  maxSpeed = 800;
+  maxSpeed = 400;
+  minSpeed = 50;
 
 
   //Serial.begin(9600);
@@ -125,7 +127,7 @@ void loop() {
 
 
   if (!client.connected()) {
-    if ( client.connect("testusr") ) {
+    if ( client.connect("a0usr") ) {
       Serial.println("connected");
     }
     String tmp = "a0 online ";
@@ -235,7 +237,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
     } else if (lvl2.equals("speed")) {
       Serial.println("speed");
-      speed = int(fmap(msgString.toFloat(),0.00,100.00,0,maxSpeed));
+      speed = int(fmap(msgString.toFloat(),0.00,100.00,minSpeed,maxSpeed));
       Serial.println(speed);
       mot.setMaxSpeed(speed);
 
